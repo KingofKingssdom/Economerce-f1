@@ -32,18 +32,18 @@ function OrderDetail() {
                                     <div>
                                     </div>
                                     <div className="left-order-product">
-                                        <img src={`${IMAGE_BASE_URL}${orderItem.productColor.urlPhoto}`} alt={orderItem.productName} />
+                                        <img src={`${IMAGE_BASE_URL}${orderItem.urlProductColor}`} alt={orderItem.productName} />
                                     </div>
                                     <div className="center-order-product">
                                         <p><b>Sản phẩm:</b> {orderItem.productName}</p>
                                         <p className="p-buy"></p>
                                         <p><b>Số lượng:</b> {orderItem.quantity} </p>
-                                        <p><b>Đơn giá: </b>
+                                        <p><b>Tổng giá sản phẩm: </b>
                                             {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
-                                                orderItem.priceBuy)}
+                                                orderItem.priceAtTime)}
                                         </p>
-                                        <p><b>Phiên bản:</b> {orderItem.productVariant.storage}</p>
-                                        <p><b>Màu sắc:</b> {orderItem.productColor.titleVariant}</p>
+                                        <p><b>Phiên bản:</b> {orderItem.storage}</p>
+                                        <p><b>Màu sắc:</b> {orderItem.colorName}</p>
                                     </div>
                                     <div>
                                     </div>

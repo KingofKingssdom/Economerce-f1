@@ -1,41 +1,64 @@
 import "../../../styles/index.css"
 import { FaLock } from "react-icons/fa";
-import { getOrderById } from "../../../services/ApiOrder";
+import { postOrder } from "../../../services/ApiOrder";
 import { postPayVNPay } from "../../../services/ApiPay";
+import { useLocation } from 'react-router-dom';
+import { getUserCurrent } from "../../../services/ApiAuth";
+import { useState, useEffect } from "react";
 function PayMethod() {
-    const id = sessionStorage.getItem("orderId");
-    let maDon = "";
-    let amount = "";
-    let orderInfo = "";
+    const location = useLocation();
+    const items = location.state?.items || [];
+    let arrayItems = items.map(item => item.id)
+    const [user, setUser] = useState(null);
+    const [receiverName, setReceiverName] = useState("");
+    const [receiverPhone, setReceiverPhone] = useState("");
+    const [shippingAddress, setShippingAddress] = useState("");
+    useEffect(() => {
+        getUserCurrent().then((response) => {
+            setUser(response);
+        })
+    }, [])
+    const handlerReceiverName = (e) => {
+        setReceiverName(e.target.value);
+    }
+    let ReceiverName = receiverName;
+    const handlerReceiverPhone = (e) => {
+        setReceiverPhone(e.target.value);
+    }
+    let ReceiverPhone = receiverPhone
+    const handlerShippingAddress = (e) => {
+        setShippingAddress(e.target.value);
+    }
+    let ShippingAddress = shippingAddress
+    const [isToggle, setIsToggle] = useState(false);
+
+    const OpenForm = () => {
+        setIsToggle(true);
+    };
+    let userId = user?.id;
     const handleCheckoutVNPay = async () => {
+        var orderId;
         try {
-            const response = await getOrderById(id)
-            const dataResponse = response.data;
-            maDon = dataResponse.id;
-            amount = dataResponse.totalPrice;
-            const orderInforOld = dataResponse.orderName;
-            const orderInforNew = orderInforOld.split("|")[0].replace(/\s+/g, '');
-            //     console.log("Giá trị mới " + orderInforNew)
-            orderInfo = orderInforNew;
+            const response = await postOrder(Number(userId), arrayItems, 1, ReceiverName, ReceiverPhone, ShippingAddress)
+            orderId = response.data.id;
 
         } catch (error) {
-            alert("Có lỗi xảy ra khi chọn thanh toán theo VNPay!");
-            console.error("Lỗi khi chọn Lấy sản phẩm trong Session :", error);
+            console.error("Lỗi khi tạo đơn hàng :", error);
 
         }
-
         try {
-            const response = await postPayVNPay(amount, orderInfo, maDon);
-
+            const response = await postPayVNPay(orderId);
             const dataResponse = response;
-            const vnPayUrl = dataResponse.vnpayUrl;
+            const vnPayUrl = dataResponse.paymentUrl;
             window.location.href = vnPayUrl;
         } catch (error) {
-            alert("Có lỗi xảy ra khi chọn thanh toán theo VNPay!");
-            console.error("Lỗi khi chọn thanh toán theo VNPay :", error);
-
+            console.error("Lỗi khi thanh toán  :", error);
         }
-    };
+        setIsToggle(false);
+    }
+
+
+
     return (
         <>
             <div className="container-paymethod">
@@ -47,7 +70,7 @@ function PayMethod() {
                 <div className="pay-select-container">
                     <div className="container-select-VNpay">
                         <div className="select-VNpay"
-                            onClick={handleCheckoutVNPay}
+                            onClick={OpenForm}
                         >
                             <img
                                 src="/image/VNPay.jpg"
@@ -70,6 +93,38 @@ function PayMethod() {
                     </div>
                 </div>
             </div>
+
+            <div className={`container-form-receiver ${isToggle ? 'active' : ''}`}>
+                <div className="form-receiver">
+                    <div className="header-receiver">
+                        <h5>VUI LÒNG XÁC NHẬN THÔNG TIN GIAO HÀNG</h5>
+                    </div>
+
+                    <label htmlFor="">Tên người nhận</label>
+                    <input
+                        type="text"
+                        value={receiverName}
+                        onChange={handlerReceiverName}
+                    />
+                    <label htmlFor="">Số điện thoại</label>
+                    <input
+                        type="text"
+                        value={receiverPhone}
+                        onChange={handlerReceiverPhone}
+                    />
+                    <label htmlFor="">Địa chỉ giao hàng</label>
+                    <input
+                        type="text"
+                        value={shippingAddress}
+                        onChange={handlerShippingAddress}
+                    />
+                    <button
+                        className="btn-submit-receiver"
+                        onClick={handleCheckoutVNPay}
+                    >xác nhận</button>
+                </div>
+            </div>
+
         </>
     )
 }

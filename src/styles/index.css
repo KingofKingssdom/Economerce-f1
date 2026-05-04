@@ -1400,7 +1400,7 @@ td {
 .form-group button:hover {
     background-color: rgb(215, 0, 24);
 
-}
+}*/
 
 .pay-result-container {
     height: 200px;
@@ -1422,7 +1422,7 @@ td {
     background-color: var(--primary-color);
     color: white;
     cursor: pointer;
-} */
+}
 
 /*============CategoryBox ===============*/
 .container-cate-box {
@@ -1615,7 +1615,9 @@ td {
 .slider-box-product {
     display: flex;
     width: 100%;
+    transition: transform 0.7s ease;
     justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .container-button-slider-product {
@@ -1676,6 +1678,8 @@ td {
     cursor: pointer;
     background-color: white;
     margin: 0 10px;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .product-box {
@@ -1769,7 +1773,7 @@ td {
     background-color: rgb(239, 233, 254);
     color: rgb(78, 35, 182);
     font-size: 13px;
-    margin: 0 5px;
+    margin: 0 1px;
     height: 68px;
     min-height: 60px;
     overflow: hidden;
@@ -2643,6 +2647,73 @@ span i {
     color: white;
 }
 
+/*Form nhập địa chỉ nhận hàng */
+.form-receiver {
+    background-color: var(--background-box-color);
+    width: 30%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+    transition: transform 0.4s ease-out;
+    transform: translateY(-200px);
+}
+
+.form-receiver .header-receiver {
+    background-color: var(--primary-color);
+}
+
+.form-receiver h5 {
+    text-align: center;
+    font-size: 15px;
+    width: 50%;
+    margin: 0 auto;
+    padding: 10px 0;
+    background-color: var(--primary-color);
+    color: var(--text-primary-color);
+}
+
+.form-receiver input {
+    display: block;
+    margin: 10px 10px;
+    width: 80%;
+}
+
+.btn-submit-receiver {
+    margin: 10px 40%;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    color: var(--text-primary-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    height: 30px;
+}
+
+.btn-submit-receiver:hover {
+    background-color: #B22222;
+}
+
+.container-form-receiver {
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.container-form-receiver.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.container-form-receiver.active .form-receiver {
+    transform: translateY(200px);
+}
+
 /*==================Page=====================*/
 /*AdminHomePage*/
 .container-home-admin {
@@ -2805,7 +2876,7 @@ span i {
     }
 
     .container-button-slider-product {
-        width: 107%;
+        width: 98%;
     }
 }
 
@@ -2881,7 +2952,7 @@ span i {
     }
 
     .container-button-slider-product {
-        width: 110%;
+        width: 0%;
     }
 
     .container-productImage {
@@ -3009,6 +3080,6 @@ span i {
     }
 
     .container-button-slider-product {
-        width: 114%;
+        width: 98%;
     }
 }

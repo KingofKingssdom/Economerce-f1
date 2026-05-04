@@ -1,12 +1,12 @@
 import "../../../styles/index.css";
 import { useState, useEffect } from "react";
-import { getProductFeatured } from "../../../services/ApiProduct";
+import { getProductPromotional } from "../../../services/ApiProduct";
 import ProductSlider from "../common/ProductSlider";
 function HotSaleProduct() {
   const [dataProduct, setDataProduct] = useState([]);
   useEffect(() => {
-    getProductFeatured().then((response) => {
-      setDataProduct(response.data);
+    getProductPromotional().then((response) => {
+      setDataProduct(response.data.result);
     })
   }, [])
   return (
@@ -25,7 +25,8 @@ function HotSaleProduct() {
 
           <ProductSlider
             getLink={(product) => {
-              switch (product.categoryId) {
+              const categoryId = product.resCategory?.id;
+              switch (categoryId) {
                 case 1:
                   return "/phoneDetail";
                 case 2:

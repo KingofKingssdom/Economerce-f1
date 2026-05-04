@@ -1,25 +1,29 @@
 import "../../../styles/index.css"
 import { useNavigate } from "react-router-dom";
-import { putPayVNPay } from "../../../services/ApiPay";
+import { getPayVNPayResult } from "../../../services/ApiPay";
 function Payresult() {
     const navigate = useNavigate();
-    const id = sessionStorage.getItem("orderId");
-    const handlePayDone = async () => {
-        try {
-            await putPayVNPay(id);
-            sessionStorage.removeItem("orderId");
-            alert("Thanh toán thành công")
-            navigate("/")
-        } catch (error) {
-            console.error("Lỗi khi xác nhận:", error);
-        }
+
+    // const handlePayResult = async () => {
+    //     try {
+    //         const response = await getPayVNPayResult();
+    //         return response.paymentUrl;
+
+    //     } catch (error) {
+    //         console.error("Lỗi nhận kết quả thanh toán  từ VNPay:", error);
+    //     }
+    // }
+
+    // var urlResponse = handlePayResult()
+    const handlePayDone = () => {
+        navigate("/order")
     }
     return (
         <>
             <div className="pay-result-container">
-                Bấm xác nhận để hoàn tất thanh toán
+                <h1>Thanh toán thành công</h1>
                 <div className="btn-done-pay"
-                    onClick={handlePayDone}>Xác nhận</div>
+                    onClick={handlePayDone}>Xem đơn hàng</div>
 
             </div>
         </>

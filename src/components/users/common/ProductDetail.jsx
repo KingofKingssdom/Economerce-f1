@@ -5,18 +5,34 @@ import { FaCartPlus, FaTruck } from "react-icons/fa";
 import { BsFillCheckCircleFill, BsXCircleFill, BsCalendar2CheckFill, BsShieldFillCheck } from "react-icons/bs";
 import { MdOutlineSwapHoriz } from "react-icons/md";
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { postAddToCart } from "../../../services/ApiCart";
+import { getUserCurrent } from "../../../services/ApiAuth";
 function ProductDetail(props) {
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const { id } = useParams();
     const navigate = useNavigate();
-    const indexInit = props.data.productVariants[0].id;
+    const [user, setUser] = useState(null);
+    const variants = props.data.resProductVariantDto;
+    const uniqueStorages = [...new Set(variants.map(v => v.storage))];
+    const [selectedStorage, setSelectedStorage] = useState(uniqueStorages[0]);
+    const [selectedVariant, setSelectedVariant] = useState(variants[0]);
+    const indexInit = props.data.resProductVariantDto[0].id;
     const [indexCurrent, setIndexCurrent] = useState(indexInit);
     const [selectBoxColor, setSelectBoxColor] = useState(0);
-    const idProductColor = props.data.productColors[selectBoxColor].id;
-    const [priceChange, setPriceChange] = useState(props.data.productVariants[0].priceDiscount);
-    const [priceOrigin, setPriceOrigin] = useState(props.data.productVariants[0].priceOrigin);
+    const idProductColor = props.data.resProductVariantDto[selectBoxColor].id;
+    const [priceChange, setPriceChange] = useState(props.data.resProductVariantDto[0].currentPrice);
+    const [priceOrigin, setPriceOrigin] = useState(props.data.resProductVariantDto[0].originPrice);
+
+    useEffect(() => {
+        getUserCurrent().then((response) => {
+            setUser(response);
+        })
+    }, [])
+    useEffect(() => {
+        const match = variants.find(v => v.storage === selectedStorage);
+        if (match) setSelectedVariant(match);
+    }, [selectedStorage, variants]);
     const [open, setOpen] = useState(false);
     const openBoxSpecification = () => {
         setOpen(true);
@@ -32,16 +48,13 @@ function ProductDetail(props) {
     const handleScroll = () => {
         sectionRef.current.scrollIntoView({ behavior: "smooth" });
     };
-
-    const user = sessionStorage.getItem("user");
-
     const addToCart = async () => {
         if (!user) {
             window.location.href = "/login";
             return;
         }
         try {
-            await postAddToCart(id, indexCurrent, idProductColor)
+            await postAddToCart(Number(user.cartId), selectedVariant.id, 1)
             // setMessage(true);
             // setTimeout(() => {
             //     setMessage(false);
@@ -59,12 +72,13 @@ function ProductDetail(props) {
             return;
         }
         try {
-            await postAddToCart(id, indexCurrent, idProductColor)
+            await postAddToCart(Number(user.cartId), selectedVariant.id, 1)
             navigate('/cart');
         } catch (error) {
             console.error("Lỗi khi mua hàng :", error);
         }
     };
+
     return (
 
         <>
@@ -92,7 +106,7 @@ function ProductDetail(props) {
                     </div>
                     <div className="wrapper-product">
                         <div className="container-productImage">
-                            <img src={`${IMAGE_BASE_URL}${props.data.productColors[selectBoxColor]?.urlPhoto}`} alt={props.data.productName} />
+                            <img src={`${IMAGE_BASE_URL}${selectedVariant?.urlProductColor}`} alt={props.data.productName} />
                         </div>
                         <div className="container-productDetail-right">
                             <div className="content-price-productDetail">
@@ -101,17 +115,17 @@ function ProductDetail(props) {
                                     <div>
                                         <span className="price-detail-product">
                                             {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" })
-                                                .format(priceChange)}
+                                                .format(selectedVariant?.currentPrice)}
                                         </span>
                                         <span className="discount-detail-product">
                                             {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" })
-                                                .format(priceOrigin)}
+                                                .format(selectedVariant?.originPrice)}
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className="content-price-right">
-                                    {props.data.quantityProduct > 0 ? (
+                                    {selectedVariant?.stock > 0 ? (
                                         <span className="in-stock">
                                             <BsFillCheckCircleFill className="icon-stick" /> Còn hàng
                                         </span>
@@ -129,39 +143,33 @@ function ProductDetail(props) {
                                 Phiên bản
                                 <div className="content-version-product-detail">
 
-                                    {props.data.productVariants.map((data) => {
-                                        return (
-                                            <div key={data.id} className={`box-version-product-detail ${indexCurrent === data.id ? "selectBox" : " "}`}
-
-                                                onClick={() => {
-                                                    setIndexCurrent(data.id);
-                                                    setPriceChange(data.priceDiscount);
-                                                    setPriceOrigin(data.priceOrigin);
-                                                }}
-                                            >
-
-
-                                                {data.storage}
-                                            </div>
-                                        )
-                                    })}
+                                    {uniqueStorages.map((storage) => (
+                                        <div
+                                            key={storage}
+                                            className={`box-version-product-detail ${selectedStorage === storage ? "selectBox" : ""}`}
+                                            onClick={() => setSelectedStorage(storage)}
+                                        >
+                                            {storage}
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                             <div className="container-version-product-detail">
                                 Màu sắc
                                 <div className="content-version-product-detail">
-                                    {props.data.productColors.map((data, index) => {
-                                        return (
-                                            <div key={data.id} className={`box-color-product-detail ${selectBoxColor === index ? "selectBoxColor" : " "}`}
-                                                onClick={() => {
-                                                    setSelectBoxColor(index);
-                                                }}
+                                    {variants
+                                        .filter(v => v.storage === selectedStorage) // Chỉ lấy màu của dung lượng đang chọn
+                                        .map((v) => (
+                                            <div
+                                                key={v.id}
+                                                className={`box-color-product-detail ${selectedVariant?.id === v.id ? "selectBoxColor" : ""}`}
+                                                onClick={() => setSelectedVariant(v)}
                                             >
-                                                <img src={`${IMAGE_BASE_URL}${data.urlPhoto}`} alt="" className="img-color-product-item" />
-                                                {data.titleVariant}
+                                                <img src={`${IMAGE_BASE_URL}${v.urlProductColor}`} alt="" className="img-color-product-item" />
+                                                {v.colorName}
                                             </div>
-                                        )
-                                    })}
+                                        ))
+                                    }
                                 </div>
 
 
@@ -236,7 +244,7 @@ function ProductDetail(props) {
                             <div className="specification-table-bottom">
                                 <div className="specification-table-bottom">
                                     <div className="table-bottom">
-                                        {props.data.specifications.map((spec) => (
+                                        {props.data.resProductSpecification.map((spec) => (
                                             <div key={spec.id}>
                                                 <h6>{spec.nameSpecification}</h6>
 

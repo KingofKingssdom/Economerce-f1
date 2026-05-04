@@ -17,11 +17,11 @@ function Login() {
         setCurrentIndex(() => 100)
     }
     const handleLogin = async (e) => {
-        e.preventDefault(); // chặn reload trang
+        e.preventDefault();
 
         try {
-            const user = await postLogin(phoneNumber, password);
-            setPhoneNumber("");
+            const user = await postLogin(email, password);
+            setEmail("");
             setPassword("");
             sessionStorage.setItem("user", JSON.stringify(user));
             navigate("/", { state: { user } });
@@ -62,16 +62,16 @@ function Login() {
                     <div className="container-login">
                         <h4 className="title">Đăng nhập</h4>
                         <form className="form-log">
-                            <p className="title-fill">Số điện thoại</p>
+                            <p className="title-fill">Email</p>
                             <div className="fill-form">
                                 <div>
                                     <CiUser />
                                 </div>
                                 <input
                                     type="text"
-                                    name="phoneNumber"
-                                    value={phoneNumber}
-                                    onChange={(e) => { setPhoneNumber(e.target.value) }}
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => { setEmail(e.target.value) }}
                                 />
 
                             </div>

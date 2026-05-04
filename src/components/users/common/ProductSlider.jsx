@@ -3,92 +3,82 @@ import { useState, useRef, useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Product from "./Product";
 function ProductSlider({ data = [], getLink }) {
-  const datas = data;
-
-
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [widthBox, setWidthBox] = useState(0);
-  const [itemsToShow, setItemsToShow] = useState(4);
-  const BoxRef = useRef(null);
-  useEffect(() => {
-    const updateWidth = () => {
-      if (BoxRef.current) {
-        const width = BoxRef.current.offsetWidth;
-        console.log("width", width);
-        setWidthBox(width);
-        const screenWidth = window.innerWidth;
-        if (screenWidth >= 1200) setItemsToShow(5);
-        else if (screenWidth >= 992) setItemsToShow(4);
-        else if (screenWidth >= 768) setItemsToShow(3);
-        else setItemsToShow(2);
-      }
-    };
 
-    updateWidth();
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
-  });
+  // Bạn có thể chỉnh số này cố định hoặc truyền từ ngoài vào làm props
+  const itemsToShow = 4;
 
   const changeLeft = () => {
-    setCurrentIndex((pre) => Math.max(pre - widthBox, 0));
+
+    setCurrentIndex((prev) => Math.max(prev - 1, 0));
   };
 
   const changeRight = () => {
-    const maxOffset = (datas.length - itemsToShow) * widthBox;
-    setCurrentIndex((prev) => {
-      const next = prev + widthBox;
-      if (next > maxOffset) {
-        return prev;
-      }
-      return next;
-    });
+    const maxIndex = data.length - itemsToShow;
+    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
   };
+
   return (
-    <>
+    <div className="container-box" style={{ overflow: "hidden", width: "100%" }}>
       <div
-        className="container-box"
+        className="slider-box-product"
+        style={{
+          display: "flex",
+          flexWrap: "nowrap",
+          transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+          transition: "transform 0.5s ease-out",
+        }}
       >
-        <div
-          className="slider-box-product"
-          style={{
-            display: "flex",
-            transform: `translateX(-${currentIndex}px)`,
-            transition: "transform 0.7s ease",
+        {data.map((item) => {
+          const link = getLink ? getLink(item) : "/productDetail";
+          return (
+            <div
+              key={item.id}
+              className="product-item-wrapper"
+              style={{
 
-          }}
-        >
-          {data.map((item) => {
-            const link = getLink ? getLink(item) : "/productDetail";
-
-            return (
+                flex: `0 0 ${100 / itemsToShow}%`,
+                boxSizing: "border-box",
+                padding: "0 10px"
+              }}
+            >
               <Product
-                key={item.id}
                 preLink={link}
                 id={item.id}
                 discountInfo="Trả góp 0%"
-                image={item.urlPhotoProduct}
+                image={item.urlImageProduct}
                 title={item.productName}
-                price={item.productVariants?.[0]?.priceDiscount}
-                discount={item.productVariants?.[0]?.priceOrigin}
+                price={item.resProductVariantDto?.[0]?.originPrice}
+                discount={item.resProductVariantDto?.[0]?.currentPrice}
                 description={item.description}
               />
-            );
-          })}
-        </div>
-
-        {/* Nút điều hướng */}
-        <div className="container-button-slider-product">
-
-          <button onClick={changeLeft} className="btn-left-product">
-            <IoIosArrowBack />
-          </button>
-
-          <button onClick={changeRight} className="btn-right-product">
-            <IoIosArrowForward />
-          </button>
-        </div>
+            </div>
+          );
+        })}
       </div>
-    </>
-  )
+
+      {/* Nút điều hướng */}
+      <div className="container-button-slider-product">
+        <button
+          onClick={changeLeft}
+          className="btn-left-product"
+          style={{ cursor: currentIndex === 0 ? "not-allowed" : "pointer", opacity: currentIndex === 0 ? 0.5 : 1 }}
+        >
+          <IoIosArrowBack />
+        </button>
+
+        <button
+          onClick={changeRight}
+          className="btn-right-product"
+          style={{
+            cursor: currentIndex >= data.length - itemsToShow ? "not-allowed" : "pointer",
+            opacity: currentIndex >= data.length - itemsToShow ? 0.5 : 1
+          }}
+        >
+          <IoIosArrowForward />
+        </button>
+      </div>
+    </div>
+  );
 }
 export default ProductSlider

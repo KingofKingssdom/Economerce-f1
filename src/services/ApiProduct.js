@@ -1,19 +1,19 @@
 import apiFetch from "./ApiClient";
 
 export function getProductAll() {
-    return apiFetch("/product/search/all", {
+    return apiFetch("/product", {
         method: "GET"
     });
 }
 
-export function getProductFeatured() {
-    return apiFetch(`/product/search/featured?featured=true`, {
+export function getProductFeatured(categoryId) {
+    return apiFetch(`/product/IsFeatured/${categoryId}`, {
         method: "GET"
 
     })
 }
-export function getProductPromotional(id) {
-    return apiFetch(`/product/search/promotional?promotional=true&categoryId=${id}`, {
+export function getProductPromotional() {
+    return apiFetch(`/product/IsOnPromotion`, {
         method: "GET"
 
     })
@@ -24,7 +24,7 @@ export function getProductPhone() {
     })
 }
 export function getProductByName(productName) {
-    return apiFetch(`/product/search/productName?productName=${productName}`, {
+    return apiFetch(`/product/productName/${productName}`, {
         method: "GET"
     })
 }
@@ -69,12 +69,12 @@ export function postProductSpecificationDetail(value) {
     })
 }
 export function getProductById(value) {
-    return apiFetch(`/product/search?productId=${value}`, {
+    return apiFetch(`/product/productId/${value}`, {
         method: "GET"
     })
 }
 export function getProductByCategoryId(id) {
-    return apiFetch(`/product/search/category?categoryId=${id}&pageNumber=0`, {
+    return apiFetch(`/product/categoryId/${id}`, {
         method: "GET"
     })
 }

@@ -3,16 +3,26 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
 import { IoIosWarning } from "react-icons/io";
-import { deleteOrderByOrderId, getOrderByUser } from "../../../services/ApiOrder";
+import { deleteOrderByOrderId, getAllOrderByUserId } from "../../../services/ApiOrder";
+import { getUserCurrent } from "../../../services/ApiAuth";
 function Order() {
     const [orders, setOrders] = useState([]);
     const [show, setShow] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
-
-
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        getUserCurrent().then((response) => {
+            setUser(response);
+        })
+    }, [])
+    useEffect(() => {
+        if (user?.id) {
+            fetchOrders();
+        }
+    }, [user]);
     const fetchOrders = async () => {
         try {
-            await getOrderByUser().then((response) => {
+            await getAllOrderByUserId(Number(user.id)).then((response) => {
                 setOrders(response.data)
             })
 
@@ -21,9 +31,7 @@ function Order() {
         }
     };
 
-    useEffect(() => {
-        fetchOrders();
-    }, []);
+
 
 
     const handleOpenConfirm = (id) => {
@@ -53,16 +61,22 @@ function Order() {
         setSelectedOrderId(null);
     };
 
-    const statusMap = {
-        PENDING: { text: "Đang chờ xác nhận", color: "orange" },
-        CONFIRMED: { text: "Đã xác nhận", color: "blue" },
-        DELIVERING: { text: "Đang giao hàng", color: "purple" },
-        COMPLETED: { text: "Hoàn thành", color: "green" },
-        CANCELLED: { text: "Đã hủy", color: "red" },
-        PAID: { text: "Đã thanh toán", color: "green" },
-        UNPAID: { text: "Chưa thanh toán", color: "red" },
-        COD: { text: "Tiền mặt", color: "purple" },
-        VNPAY: { text: "Ví VNPay", color: "blue" },
+    const ORDER_STATUS = {
+        0: { text: "Đang chờ xác nhận", color: "orange" },
+        1: { text: "Đã xác nhận", color: "blue" },
+        2: { text: "Đang giao hàng", color: "purple" },
+        3: { text: "Hoàn thành", color: "green" },
+        4: { text: "Đã hủy", color: "red" },
+    };
+
+    const PAYMENT_STATUS = {
+        0: { text: "Chưa thanh toán", color: "red" },
+        1: { text: "Đã thanh toán", color: "green" },
+    };
+
+    const PAYMENT_METHOD = {
+        0: { text: "Tiền mặt (COD)", color: "purple" },
+        1: { text: "Ví VNPay", color: "blue" },
     };
     return (
         <>
@@ -75,7 +89,6 @@ function Order() {
                                 <thead>
                                     <tr>
                                         <th>Mã đơn hàng</th>
-                                        <th>Tên đơn hàng</th>
                                         <th>Ngày cập nhật</th>
                                         <th>Tổng giá tiền</th>
                                         <th>Phương thức thanh toán</th>
@@ -87,20 +100,23 @@ function Order() {
                                 <tbody>
                                     {orders.map((order) => (
                                         <tr key={order.id}>
-                                            <td>{order.id}</td>
-                                            <td>{order.orderName}</td>
+                                            <td>{order.orderCode}</td>
                                             <td>{new Date(order.dayCreate).toLocaleDateString("vi-VN")}</td>
                                             <td>
                                                 {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(order.totalPrice)}
                                             </td>
-                                            <td style={{ color: statusMap[order.paymentMethod]?.color }}>
-                                                {statusMap[order.paymentMethod]?.text}
+                                            <td style={{ color: PAYMENT_METHOD[order.paymentMethod]?.color, fontWeight: 'bold' }}>
+                                                {PAYMENT_METHOD[order.paymentMethod]?.text || "Không xác định"}
                                             </td>
-                                            <td style={{ color: statusMap[order.paymentStatus]?.color }}>
-                                                {statusMap[order.paymentStatus]?.text}
+
+
+                                            <td style={{ color: PAYMENT_STATUS[order.paymentStatus]?.color, fontWeight: 'bold' }}>
+                                                {PAYMENT_STATUS[order.paymentStatus]?.text || "Không xác định"}
                                             </td>
-                                            <td style={{ color: statusMap[order.status]?.color }}>
-                                                {statusMap[order.status]?.text}
+
+
+                                            <td style={{ color: ORDER_STATUS[order.orderStatus]?.color, fontWeight: 'bold' }}>
+                                                {ORDER_STATUS[order.orderStatus]?.text || "Không xác định"}
                                             </td>
                                             <td>
                                                 <Link to={`/orderDetail/${order.id}`}>
@@ -110,7 +126,7 @@ function Order() {
                                                 </Link>
                                                 <button
                                                     className="btn-cancel"
-                                                    onClick={() => handleOpenConfirm(order.id)} // 🔹 chỉ mở popup
+                                                    onClick={() => handleOpenConfirm(order.id)}
                                                 >
                                                     <MdDeleteOutline />
                                                 </button>

@@ -1,29 +1,34 @@
 import apiFetch from "./ApiClient";
-export function postLogin(phoneNumber, password) {
+export function postLogin(Email, Password) {
     return apiFetch("/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            phoneNumber,
-            password
+            Email,
+            Password
         })
 
     });
 }
 
-export function postRegister(fullName, phoneNumber, email, password) {
-    return apiFetch("/auth/register", {
+export function postRegister(FullName, PhoneNumber, Email, Password) {
+    return apiFetch("/user/register/Customer", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fullName,
-            phoneNumber,
-            email,
-            password
+            FullName,
+            PhoneNumber,
+            Email,
+            Password
         })
     });
+}
+export function getUserCurrent() {
+    return apiFetch(`/user/me`, {
+        method: "GET"
+    })
 }

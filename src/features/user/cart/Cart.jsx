@@ -1,17 +1,22 @@
 import "../../../styles/index.css"
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { MdDelete, MdPayment } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { getCartItem } from "../../../services/ApiCart";
+import { getCartItemByUserId } from "../../../services/ApiCart";
+import { getUserCurrent } from "../../../services/ApiAuth";
 import { postOrder } from "../../../services/ApiOrder";
 import { IoIosArrowForward, IoIosCash } from "react-icons/io";
 
 function Cart() {
+    const navigate = useNavigate();
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const [cartItems, setCartItems] = useState([]);
     const [checkedItems, setCheckedItems] = useState([]); // mảng lưu id đã check
     const [show, setShow] = useState(false);
+    const [user, setUser] = useState(null);
+
 
     const handleCheck = (id) => {
         setCheckedItems((prev) => {
@@ -29,21 +34,30 @@ function Cart() {
     const selectedItems = cartItems.filter((item) =>
         checkedItems.includes(item.id)
     );
-
     const totalAmount = selectedItems.reduce(
         (sum, item) => sum + item.totalPrice, 0
     );
-    const fetchCartItems = async () => {
-        try {
-            await getCartItem().then((response) => {
-                setCartItems(response.data)
-            })
-        } catch (error) {
-            console.error("Lỗi gọi API mặt hàng: " + error);
-        }
-    };
     useEffect(() => {
-        fetchCartItems();
+        const loadInitialData = async () => {
+            try {
+
+                const userData = await getUserCurrent();
+
+
+                setUser(userData);
+
+
+                if (userData && userData.id) {
+
+                    const cartResponse = await getCartItemByUserId(Number(userData.id));
+                    setCartItems(cartResponse.data);
+                }
+            } catch (error) {
+                console.error("Lỗi khi khởi tạo dữ liệu: ", error);
+            }
+        };
+
+        loadInitialData();
     }, []);
 
     const handleOrder = async () => {
@@ -54,14 +68,13 @@ function Cart() {
 
         try {
 
-            const response = await postOrder(checkedItems);
-            const dataResponse = response.data;
-            const orderId = dataResponse.id;
-            sessionStorage.setItem("orderId", `${orderId}`);
-            await fetchCartItems();
-            setCheckedItems([]);
+            // const response = await postOrder(checkedItems);
+            // const dataResponse = response.data;
+            // const orderId = dataResponse.id;
+            // sessionStorage.setItem("orderId", `${orderId}`);
+            // await fetchCartItems();
+            // setCheckedItems([]);
             setShow(true);
-            alert("Đặt hàng thành công")
 
         } catch (error) {
             alert("Có lỗi xảy ra khi đặt hàng!");
@@ -69,6 +82,9 @@ function Cart() {
 
         }
     };
+    const handleSumitPayOnline = async () => {
+        navigate('/payOnline', { state: { items: selectedItems } });
+    }
     const handleClose = () => {
         setShow(false)
     }
@@ -100,7 +116,7 @@ function Cart() {
                                         />
                                     </div>
                                     <div className="left-order-product">
-                                        <img src={`${IMAGE_BASE_URL}${cartItem.productColor.urlPhoto}`} alt={cartItem.productName} />
+                                        <img src={`${IMAGE_BASE_URL}${cartItem.urlProductColor}`} alt={cartItem.productName} />
                                     </div>
                                     <div className="center-order-product">
                                         <p><b>Sản phẩm:</b> {cartItem.productName}</p>
@@ -108,10 +124,10 @@ function Cart() {
                                         <p><b>Số lượng:</b> {cartItem.quantity} </p>
                                         <p><b>Đơn giá: </b>
                                             {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
-                                                cartItem.productPrice)}
+                                                cartItem.priceAtTime)}
                                         </p>
-                                        <p><b>Phiên bản:</b> {cartItem.productVariant.storage}</p>
-                                        <p><b>Màu sắc:</b> {cartItem.productColor.titleVariant}</p>
+                                        <p><b>Phiên bản:</b> {cartItem.storage}</p>
+                                        <p><b>Màu sắc:</b> {cartItem.colorName}</p>
                                     </div>
 
                                     <div className="rigth-order-product">
@@ -165,8 +181,8 @@ function Cart() {
                     </div>
 
                     <div className="select-box-container ">
-                        <Link
-                            to="/payOnline"
+                        <div
+                            onClick={handleSumitPayOnline}
 
                         >
                             <div className="btn-online"
@@ -180,7 +196,7 @@ function Cart() {
                                 </div>
                                 <div className="btn-online-right"><IoIosArrowForward /></div>
                             </div>
-                        </Link>
+                        </div>
 
                         <div
                             className="btn-confirm-order"

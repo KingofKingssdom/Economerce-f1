@@ -12,7 +12,7 @@ export function getBrand() {
     })
 }
 export function getBrandByCategoryId(id) {
-    return apiFetch(`/brand/get/category?categoryId=${id}`, {
+    return apiFetch(`/brand/categoryId/${id}`, {
         method: "GET"
     })
 }

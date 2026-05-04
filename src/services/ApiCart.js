@@ -1,11 +1,19 @@
 import apiFetch from "./ApiClient";
-export function postAddToCart(id, indexCurrent, selectBoxColor) {
-    return apiFetch(`/cartItem/create?productId=${id}&productVariantId=${indexCurrent}&productColorId=${selectBoxColor}`, {
-        method: "POST"
+export function postAddToCart(cartId, productVariantId, quantity) {
+    return apiFetch(`/cart-items`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            cartId: cartId,
+            productVariantId: productVariantId,
+            quantity: quantity
+        })
     })
 }
-export function getCartItem() {
-    return apiFetch("/cartItem/all", {
+export function getCartItemByUserId(userId) {
+    return apiFetch(`/cart-items/user/${userId}`, {
         method: "GET"
     })
 }

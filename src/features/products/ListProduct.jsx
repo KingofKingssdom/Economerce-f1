@@ -9,7 +9,7 @@ function ListProduct() {
     const fetchProducAll = async () => {
         try {
             await getProductAll().then((response) => {
-                setProducts(response.data.content)
+                setProducts(response.data)
             });
 
         } catch (error) {

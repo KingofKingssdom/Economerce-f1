@@ -2,7 +2,7 @@ import "../../../styles/index.css";
 import { FaArrowRight } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"
-import { getProductPromotional } from "../../../services/ApiProduct";
+import { getProductFeatured } from "../../../services/ApiProduct";
 import ProductSlider from "../common/ProductSlider";
 function OutStandingProduct() {
     const [productPhone, setProductPhone] = useState([]);
@@ -10,21 +10,21 @@ function OutStandingProduct() {
     const categoryPhone = 1;
     const categoryTablet = 2;
     useEffect(() => {
-        getProductPromotional(categoryPhone).then(
+        getProductFeatured(categoryPhone).then(
             (response) => {
-                setProductPhone(response.data);
+                setProductPhone(response.data.result);
             }
         )
 
     }, [])
-    useEffect(() => {
-        getProductPromotional(categoryTablet).then(
-            (response) => {
-                setProductTablet(response.data);
-            }
-        )
+    // useEffect(() => {
+    //     getProductPromotional(categoryTablet).then(
+    //         (response) => {
+    //             setProductTablet(response.data.result);
+    //         }
+    //     )
 
-    }, [])
+    // }, [])
     return (
         <>
             <div className="container-outStanding">
@@ -53,7 +53,7 @@ function OutStandingProduct() {
                         </div>
                     </div>
 
-                    <div className="">
+                    {/* <div className="">
                         <div className="title-box-product">
                             <div className="container-title-product">
                                 <h2>Tablet</h2>
@@ -72,7 +72,7 @@ function OutStandingProduct() {
                                 />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

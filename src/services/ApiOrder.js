@@ -5,19 +5,26 @@ export function getOrder() {
         method: "GET"
     })
 }
-export function postOrder(checkedItems) {
-    return apiFetch("/order/create", {
+export function postOrder(userId, selectedCartItemIds, paymentMethod, receiverName, receiverPhone, shippingAddress) {
+    return apiFetch(`/order/${userId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            cartItemIds: checkedItems
+            UserId: userId,
+            SelectedCartItemIds: selectedCartItemIds,
+            PaymentMethod: paymentMethod,
+            ReceiverName: receiverName,
+            ReceiverPhone: receiverPhone,
+            ShippingAddress: shippingAddress
         })
     })
 }
-export function getOrderById(id) {
-    return apiFetch(`/order/search?orderId=${id}`)
+export function getAllOrderByUserId(userId) {
+    return apiFetch(`/order/${userId}`, {
+        method: "GET",
+    })
 }
 
 export function postOrderPay(value) {
@@ -35,8 +42,8 @@ export function getOrderByUser() {
     })
 }
 
-export function getOrderItemByOrderId(id) {
-    return apiFetch(`/orderItem/all?orderId=${id}`, {
+export function getOrderItemByOrderId(orderId) {
+    return apiFetch(`/order-items/orderId/${orderId}`, {
         method: "GET"
     })
 }

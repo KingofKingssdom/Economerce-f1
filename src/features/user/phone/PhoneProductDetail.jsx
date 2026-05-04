@@ -10,7 +10,7 @@ function PhoneProductDetail() {
 
         try {
             await getProductById(id).then((response) => {
-                setDataProduct(response.data);
+                setDataProduct(response.data.result);
             })
         } catch (error) {
             console.log("Lỗi lấy sản phẩm theo id " + error)

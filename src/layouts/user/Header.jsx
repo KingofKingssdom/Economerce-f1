@@ -9,6 +9,7 @@ import { LuTruck } from "react-icons/lu";
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MdOutlineLogout } from "react-icons/md";
+import { getUserCurrent } from "../../services/ApiAuth";
 function Header() {
 
     const location = useLocation();
@@ -49,13 +50,10 @@ function Header() {
         setSearchItem(e.target.value);
     }
     useEffect(() => {
-        if (location.state?.user) {
-            setUser(location.state.user);
-        } else {
-            const savedUser = sessionStorage.getItem("user");
-            if (savedUser) setUser(JSON.parse(savedUser));
-        }
-    }, [location.state]);
+        getUserCurrent().then((response) => {
+            setUser(response);
+        })
+    }, [])
 
 
     return (
