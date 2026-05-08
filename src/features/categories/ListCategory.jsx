@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
 import { getCategory } from "../../services/ApiCategory";
+import { CgSortAz } from "react-icons/cg";
+import { MdFileDownload } from "react-icons/md";
 function ListCategory() {
     const [categories, setCategories] = useState([]);
 
@@ -24,16 +26,40 @@ function ListCategory() {
     return (
         <>
             <div className="container-admin">
-                <div className="content-list">
-                    <div className="top-content-list">
-                        <h2>Danh mục</h2>
-                    </div>
 
-                    <div className="table-content-list-category">
-                        <table className="">
+                <div className="content-list">
+                    <h2>DANH MỤC</h2>
+                    <p>Danh sách cách danh mục trong hệ thống</p>
+                    <div className="table-content-list">
+                        <div className="content-top-list">
+                            <div className="search-item-list">
+                                Tìm kiếm theo mã danh mục
+                                <div className="container-search-item-list">
+                                    <input
+                                        // value={ }
+                                        // onChange={ }
+                                        placeholder="Nhập mã tìm kiếm ......."
+                                    />
+                                    <button
+                                    // onChange={}
+                                    >Tìm</button>
+                                </div>
+
+                            </div>
+                            <div className="filter-item-list">
+                                <div className="filter-sort">
+                                    <CgSortAz />
+                                </div>
+                                <div className="filter-download">
+                                    <MdFileDownload />
+                                </div>
+                            </div>
+                        </div>
+
+                        <table className="table-content-list-all">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th>Mã danh mục</th>
                                     <th>Tên danh mục</th>
                                     <th>Chỉnh sửa</th>
                                 </tr>
@@ -41,7 +67,7 @@ function ListCategory() {
                             <tbody>
                                 {categories.map((category) => (
                                     <tr key={category.id}>
-                                        <td>{category.id}</td>
+                                        <td style={{ color: "red", fontWeight: "bolder" }}>{category.categoryCode}</td>
                                         <td>{category.categoryName}</td>
                                         <td>
                                             <Link to={`/admin/updateCategory/${category.id}`}>

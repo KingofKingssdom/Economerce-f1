@@ -2,18 +2,21 @@ import "../../styles/index.css"
 import { useState } from "react";
 import { postCategory } from "../../services/ApiCategory";
 function AddCateogry() {
+    const [categoryCode, setCategoryCode] = useState("");
     const [categoryName, setCategoryName] = useState("");
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = new FormData()
-        form.append("categoryName", categoryName);
-
+    const handleCategoryCode = (e) => {
+        setCategoryCode(e.target.value)
+    }
+    const handleCategoryName = (e) => {
+        setCategoryName(e.target.value)
+    }
+    const handleSubmit = async () => {
         try {
-            const response = await postCategory(form);
+            const response = await postCategory(categoryCode, categoryName);
             alert("Thêm dữ liệu thành công")
             setCategoryName("");
+            setCategoryCode("");
 
         }
         catch (error) {
@@ -31,33 +34,50 @@ function AddCateogry() {
                 {errorMessage && <p className="notification-error">{errorMessage}</p>} */}
                     <div className="header-add">
                         <h1>Thêm Danh mục</h1>
+                        <p>Quản lý các nhóm sản phẩm trong hệ thống cửa hàng của bạn</p>
                     </div>
-                    <div className="container-form-category">
+                    <div className="container-form-add">
                         <div className="form-container">
-
-                            <form onSubmit={handleSubmit}>
-
-                                <div className="form-container-category">
-                                    <label htmlFor="categoryName">Thêm tên danh mục:</label>
+                            <div className="form-content">
+                                <div className="item-form-content">
+                                    <label htmlFor="categoryCode" className="lable-form">MÃ DANH MỤC</label>
                                     <input
+                                        className="input-form"
+                                        type="text"
+                                        id="categoryCode"
+                                        name="categoryCode"
+                                        value={categoryCode}
+                                        onChange={handleCategoryCode}
+                                        placeholder="VD: DT"
+                                        required
+
+                                    />
+                                </div>
+                                <div className="item-form-content">
+                                    <label htmlFor="categoryName" className="lable-form">TÊN DANH MỤC</label>
+                                    <input
+                                        className="input-form"
                                         type="text"
                                         id="categoryName"
                                         name="categoryName"
+                                        placeholder="VD: Điện thoại"
                                         value={categoryName}
-                                        onChange={(e) => setCategoryName(e.target.value)}
+                                        onChange={handleCategoryName}
                                         required
                                     />
-                                    <button className='button-add' type="submit">Thêm</button>
                                 </div>
 
+                            </div>
+                            <button className='button-add' onClick={handleSubmit}>Thêm Danh mục</button>
+                            <p><b>Vui lòng kiểm tra chính xác thông tin trước khi gửi dữ liệu</b></p>
 
-                            </form>
                         </div>
-
                     </div>
 
                 </div>
+
             </div>
+            {/* </div > */}
         </>
     )
 }

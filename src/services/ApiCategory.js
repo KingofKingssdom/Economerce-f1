@@ -1,12 +1,18 @@
 import apiFetch from "./ApiClient";
-export function postCategory(categoryName) {
-    return apiFetch("/category/create", {
+export function postCategory(categoryCode, categoryName) {
+    return apiFetch("/categories", {
         method: "POST",
-        body: categoryName
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            categoryCode: categoryCode,
+            categoryName: categoryName
+        })
     })
 }
 export function getCategory() {
-    return apiFetch("/category/search/all", {
+    return apiFetch("/categories", {
         method: "GET"
     })
 }
