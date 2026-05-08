@@ -65,15 +65,8 @@ function Cart() {
             alert("Vui lòng chọn ít nhất 1 sản phẩm để đặt hàng!");
             return;
         }
-
         try {
 
-            // const response = await postOrder(checkedItems);
-            // const dataResponse = response.data;
-            // const orderId = dataResponse.id;
-            // sessionStorage.setItem("orderId", `${orderId}`);
-            // await fetchCartItems();
-            // setCheckedItems([]);
             setShow(true);
 
         } catch (error) {
@@ -155,11 +148,8 @@ function Cart() {
 
                     {cartItems.length > 0 ? (
                         <div className="container-total">
-                            <p>
-                                <b>Tổng tiền: </b>
-                                {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(totalAmount)}
-                            </p>
-
+                            <p><b>Tổng tiền: </b></p>
+                            <h4>{new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(totalAmount)}</h4>
 
                             <div className="btn-buy"
                                 onClick={handleOrder}

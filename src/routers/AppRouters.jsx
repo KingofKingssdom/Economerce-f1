@@ -28,6 +28,18 @@ import OrderDetail from "../features/user/order/OrderDetail";
 import PhoneListProduct from "../features/user/phone/PhoneListProduct";
 import { ImImage } from "react-icons/im";
 import AdminProtectedRoute from "./AdminProtectedRoute"
+import TabletProduct from "../features/user/tablet/TabletListProduct";
+import LaptopListProduct from "../features/user/laptop/LaptopListProduct";
+import TabletProductDetail from "../features/user/tablet/TabletProductDetail";
+import LaptopProductDetail from "../features/user/laptop/LaptopProductDetail";
+import SoundListProduct from "../features/user/sound/SoundListProduct";
+import SoundProductDetail from "../features/user/sound/SoundProductDetail";
+import WatchListProduct from "../features/user/watch/WatchListProduct";
+import WatchProductDetail from "../features/user/watch/WatchProductDetail";
+import ScreenListProduct from "../features/user/screen/ScreenListProduct";
+import ScreenProductDetail from "../features/user/screen/ScreenProductDetail";
+import TiviListProduct from "../features/user/tivi/TiviListProduct";
+import TiviProductDetail from "../features/user/tivi/TiviProductDetail";
 function AppRouters() {
     const [showButton, setShowButton] = useState(false);
 
@@ -62,26 +74,20 @@ function AppRouters() {
                     <Route path="/order" element={<Order />} />
                     <Route path="/orderDetail/:id" element={<OrderDetail />} />
                     <Route path="/phoneProduct" element={<PhoneListProduct />} />
+                    <Route path="/tabletProduct" element={<TabletProduct />} />
+                    <Route path="/laptopProduct" element={<LaptopListProduct />} />
+                    <Route path="/tabletDetail/:id" element={<TabletProductDetail />} />
+                    <Route path="/laptopDetail/:id" element={<LaptopProductDetail />} />
+                    <Route path="/soundProduct" element={<SoundListProduct />} />
+                    <Route path="/soundDetail/:id" element={<SoundProductDetail />} />
+                    <Route path="/watchProduct" element={<WatchListProduct />} />
+                    <Route path="/screenProduct" element={<ScreenListProduct />} />
+                    <Route path="/tiviProduct" element={<TiviListProduct />} />
+                    <Route path="/screenDetail/:id" element={<ScreenProductDetail />} />
+                    <Route path="/watchDetail/:id" element={<WatchProductDetail />} />
+                    <Route path="/tiviDetail/:id" element={<TiviProductDetail />} />
                     {/*  
-                        <Route path="/tabletProduct" element={<TabletProduct />} />
-                        <Route path="/laptopProduct" element={<LaptopProduct />} />
-                        <Route path="/soundProduct" element={<SoundProduct />} />
-                        <Route path="/watchProduct" element={<WatchProduct />} />
-                        <Route path="/screenProduct" element={<ScreenProduct />} />
-                        <Route path="/tiviProduct" element={<TvProduct />} />
-                        
-                        <Route path="/tabletDetail/:id" element={<TabletDetail />} />
-                        <Route path="/laptopDetail/:id" element={<LaptopDetail />} />
-                        <Route path="/soundDetail/:id" element={<SoundDetail />} />
-                        <Route path="/screenDetail/:id" element={<ScreenDetail />} />
-                        <Route path="/watchDetail/:id" element={<WatchDetail />} />
-                        <Route path="/tvDetail/:id" element={<TvDetail />} />
-                       
                         <Route path="/confirmInformation/:id" element={<Information />} />
-                       
-                       
-                       
-                        
                         */}
 
                 </Route>

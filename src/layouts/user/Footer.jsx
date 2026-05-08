@@ -1,12 +1,12 @@
 import "../../styles/index.css"
 
-function Footer(){
+function Footer() {
 
-    return(
+    return (
         <>
-             <div className="container-footer">
-                <div class="footer">
-                    <div class="footer-column">
+            <div className="container-footer">
+                <div className="footer">
+                    <div className="footer-column">
                         <h3>Tổng đài hỗ trợ miễn phí</h3>
                         <p>Gọi mua hàng<strong>1800.2097</strong>(7h30 - 22h00)</p>
                         <p>Gọi khiếu nại<strong>1800.2063</strong>(8h00 - 21h30)</p>

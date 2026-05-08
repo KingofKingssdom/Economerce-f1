@@ -35,8 +35,6 @@ function SearchProduct(props) {
 
     return (
         <>
-
-
             {results.length > 0 ? (
                 <ul className="search-results">
                     {results.map((item) => (
@@ -54,7 +52,7 @@ function SearchProduct(props) {
                         >
                             <li key={item.id}>
                                 <div style={{ width: '40px', height: '40px', marginRight: '10px', overflow: 'hidden' }}>
-                                    <img src={`${API_BASE_URL}${item.urlPhotoProduct}`} alt={item.name} style={{
+                                    <img src={`${API_BASE_URL}${item.urlImageProduct}`} alt={item.name} style={{
                                         objectFit: "cover", width: "100%", height: "100%"
                                     }} />
                                 </div>

@@ -8,38 +8,42 @@ function ProductList(props) {
     const [initialList, setInitialList] = useState([]);
     const [brandId, setBrandId] = useState(0);
     const [filterBrand, setFilterBrand] = useState([]);
-    const [offset, setOffset] = useState(0);
+    // const [offset, setOffset] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [selectedPage, setSelectedPage] = useState(1);
     const categoryId = props.categoryId
-    const leftArrow = () => {
-        setOffset((prev) => prev + 40);
-    }
-    const rigtArrow = () => {
-        setOffset((prev) => prev - 40);
-    }
+    // const leftArrow = () => {
+    //     setOffset((prev) => prev + 40);
+    // }
+    // const rigtArrow = () => {
+    //     setOffset((prev) => prev - 40);
+    // }
     useEffect(() => {
-        setInitialList(props.dataProduct);
+        if (props.dataProduct) {
+            setInitialList(props.dataProduct);
+        }
     }, [props.dataProduct]);
     const fetchProduct = async () => {
+        if (brandId === 0) return;
+
         try {
-            await getProductByCategoryIdAndBrandId(categoryId, brandId).then(
-                (response) => {
-                    setFilterBrand(response.data.content);
-                    setCurrentPage(response.data.totalPages);
-                }
-            )
+            const response = await getProductByCategoryIdAndBrandId(categoryId, brandId);
+            if (response.data) {
+                setFilterBrand(response.data);
+            }
         } catch (error) {
-            console.log("Lỗi lấy sản phẩm theo danh mục và nhãn hiệu " + error)
+            console.error("Lỗi lấy sản phẩm:", error);
         }
-    }
+    };
+
     useEffect(() => {
-        fetchProduct()
+        fetchProduct();
     }, [brandId]);
 
 
-    let productShow = brandId !== 0 ? filterBrand : initialList;
+    const productShow = (brandId !== 0 ? filterBrand : initialList) || [];
 
+    console.log("Giá trị productShow:", productShow);
 
     const pages = [];
     for (let i = 1; i <= currentPage; i++) {
@@ -62,7 +66,6 @@ function ProductList(props) {
                             className={`box-brand ${brandId === brand.id ? "active" : ""}`}
                             onClick={
                                 () => setBrandId(brand.id)}
-                        // chỗ này sẽ làm nút lọc sản phẩm
                         >
                             <img src={`${IMAGE_BASE_URL}${brand.urlImageBrand}`} alt={brand.brandName} />
                         </div>))}
@@ -77,17 +80,17 @@ function ProductList(props) {
                                 preLink={props.link}
                                 id={data.id}
                                 discountInfo="Trả góp 0%"
-                                image={data.urlPhotoProduct}
+                                image={data.urlImageProduct}
                                 title={data.productName}
-                                price={data.productVariants?.[0]?.priceDiscount}
-                                discount={data.productVariants?.[0]?.priceOrigin}
+                                price={data.resProductVariantDto?.[0]?.currentPrice}
+                                discount={data.resProductVariantDto?.[0]?.originPrice}
                                 description={data.description}
                             />
                         </div>))) : (
                     <p>Không có sản phẩm nào.</p>
                 )}
             </div>
-            <div className="container-page">
+            {/* <div className="container-page">
                 <div className="btn-page-left"
                     onClick={leftArrow}
                 ><FaArrowLeft /></div>
@@ -101,7 +104,7 @@ function ProductList(props) {
                 <div className="btn-page-right"
                     onClick={rigtArrow}
                 ><FaArrowRight /></div>
-            </div>
+            </div> */}
         </>
     )
 }

@@ -79,7 +79,7 @@ export function getProductByCategoryId(id) {
     })
 }
 export function getProductByCategoryIdAndBrandId(categoryId, brandId) {
-    return apiFetch(`/product/get/category/brand?categoryId=${categoryId}&brandId=${brandId}`, {
+    return apiFetch(`/product/categoryId/${categoryId}/brandId/${brandId}`, {
         method: "GET"
     })
 }

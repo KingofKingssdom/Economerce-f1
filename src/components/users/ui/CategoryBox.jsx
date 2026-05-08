@@ -13,7 +13,7 @@ function CategoryBox() {
                     <p>Điện thoại</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/tabletProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateTablet.png" />
                         </div>
@@ -21,7 +21,7 @@ function CategoryBox() {
                     <p>Tablet</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/watchProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateWatch.png" />
                         </div>
@@ -29,7 +29,7 @@ function CategoryBox() {
                     <p>Đồng hồ</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/laptopProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateLaptop.png" />
                         </div>
@@ -37,7 +37,7 @@ function CategoryBox() {
                     <p>Latop</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/soundProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateSound.png" />
                         </div>
@@ -45,7 +45,7 @@ function CategoryBox() {
                     <p>Tai nghe</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/screenProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateScreen.png" />
                         </div>
@@ -53,7 +53,7 @@ function CategoryBox() {
                     <p>Màn hình</p>
                 </div>
                 <div className="container-item-cate-box">
-                    <a href="./demo">
+                    <a href="/tiviProduct">
                         <div className="icon-cate-box">
                             <img src="./image/CateTivi.png" />
                         </div>

@@ -29,6 +29,7 @@ function HomePage() {
             <div>
                 <ExperienceBuy />
             </div>
+
         </>
     )
 }

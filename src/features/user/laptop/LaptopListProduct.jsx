@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import ProductList from "../../../components/users/common/ProducList"
 import { getBrandByCategoryId } from "../../../services/ApiBrand";
 import { getProductByCategoryId } from "../../../services/ApiProduct";
-function PhoneListProduct() {
+function LaptopListProduct() {
     const [dataBrand, setDataBrand] = useState(null);
     const [dataProduct, setDataProduct] = useState([]);
-    const categoryPhone = 1;
-    const linkPhone = "/phoneDetail"
+    const categoryLaptop = 3;
+    const linkLaptop = "/laptopDetail"
     const fetchBrand = async () => {
         try {
             await getBrandByCategoryId(categoryPhone).then((response) => {
@@ -22,7 +22,7 @@ function PhoneListProduct() {
     }, [])
     const fetchProduct = async () => {
         try {
-            await getProductByCategoryId(categoryPhone).then((response) => {
+            await getProductByCategoryId(categoryLaptop).then((response) => {
                 setDataProduct(response.data);
             })
         } catch (error) {
@@ -40,11 +40,11 @@ function PhoneListProduct() {
                 <ProductList
                     dataBrand={dataBrand}
                     dataProduct={dataProduct}
-                    categoryId={categoryPhone}
-                    link={linkPhone}
+                    categoryId={categoryLaptop}
+                    link={linkLaptop}
                 />
             </div>
         </>
     )
 }
-export default PhoneListProduct
+export default LaptopListProduct

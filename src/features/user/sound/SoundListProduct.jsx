@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import ProductList from "../../../components/users/common/ProducList"
 import { getBrandByCategoryId } from "../../../services/ApiBrand";
 import { getProductByCategoryId } from "../../../services/ApiProduct";
-function PhoneListProduct() {
+function SoundListProduct() {
     const [dataBrand, setDataBrand] = useState(null);
     const [dataProduct, setDataProduct] = useState([]);
-    const categoryPhone = 1;
-    const linkPhone = "/phoneDetail"
+    const categorySound = 4;
+    const linkSound = "/soundDetail"
     const fetchBrand = async () => {
         try {
-            await getBrandByCategoryId(categoryPhone).then((response) => {
+            await getBrandByCategoryId(categorySound).then((response) => {
                 setDataBrand(response.data);
             })
         } catch (error) {
@@ -22,7 +22,7 @@ function PhoneListProduct() {
     }, [])
     const fetchProduct = async () => {
         try {
-            await getProductByCategoryId(categoryPhone).then((response) => {
+            await getProductByCategoryId(categorySound).then((response) => {
                 setDataProduct(response.data);
             })
         } catch (error) {
@@ -40,11 +40,11 @@ function PhoneListProduct() {
                 <ProductList
                     dataBrand={dataBrand}
                     dataProduct={dataProduct}
-                    categoryId={categoryPhone}
-                    link={linkPhone}
+                    categoryId={categorySound}
+                    link={linkSound}
                 />
             </div>
         </>
     )
 }
-export default PhoneListProduct
+export default SoundListProduct

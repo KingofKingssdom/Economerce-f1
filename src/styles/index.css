@@ -765,6 +765,10 @@ th {
     margin-bottom: 10px;
 }
 
+.order-table {
+    margin: 0 30px;
+}
+
 /*List product detail*/
 .content-list-detail {
     display: grid;
@@ -811,7 +815,7 @@ th {
     background-color: rgb(243, 246, 248);
     max-width: 100%;
     box-sizing: border-box;
-    margin-bottom: 20px;
+    overflow: hidden;
 }
 
 
@@ -819,6 +823,7 @@ th {
     width: 100%;
     margin: 0 auto;
     height: 650px;
+    overflow-y: auto;
 }
 
 .container-order .title {
@@ -929,18 +934,25 @@ th {
     box-shadow: 0 0 5px 5px rgb(215, 215, 215);
     border-radius: 5px;
     position: absolute;
-    top: 750px;
+    top: 720px;
     display: flex;
     overflow: hidden;
     padding: 5px 10px;
     justify-content: space-between;
     z-index: 1;
+    right: 180px;
+}
+
+.container-total h4 {
+    font-size: 20px;
+    margin: 20px;
 }
 
 .container-total p {
     margin-top: 0;
     margin-right: 20px;
     font-size: 20px;
+    width: 40px;
 }
 
 .container-total>.btn-buy {
@@ -1609,6 +1621,14 @@ td {
 }
 
 
+/*===============Footer==============*/
+
+.footer {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+}
 
 /*============Common ===============*/
 /*ProductSilder*/
@@ -1880,7 +1900,7 @@ td {
 }
 
 .box-product-noibat {
-    width: 100%;
+    width: 80%;
 }
 
 .box-banner-noibat {

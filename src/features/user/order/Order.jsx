@@ -99,8 +99,10 @@ function Order() {
                                 </thead>
                                 <tbody>
                                     {orders.map((order) => (
-                                        <tr key={order.id}>
-                                            <td>{order.orderCode}</td>
+                                        <tr key={order.id} className="order-table">
+                                            <td>
+                                                {order.orderCode.split('-').slice(0, 2).join('-')}
+                                            </td>
                                             <td>{new Date(order.dayCreate).toLocaleDateString("vi-VN")}</td>
                                             <td>
                                                 {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(order.totalPrice)}
