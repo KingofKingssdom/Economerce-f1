@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
 import { GoPencil } from "react-icons/go";
+import { IoAddOutline } from "react-icons/io5";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { CgSortAz } from "react-icons/cg";
+import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import PageNavigation from "../../components/admin/ui/PageNavigation";
+import { LiaEyeSolid } from "react-icons/lia";
 function ListProduct() {
     const [products, setProducts] = useState([]);
     const fetchProducAll = async () => {
@@ -19,21 +25,137 @@ function ListProduct() {
     useEffect(() => {
         fetchProducAll()
     }, [])
+    const [displayData, setDisplayData] = useState([]);
+    const [filterData, setFilterData] = useState("");
+    const handleFilterData = (e) => {
+        setFilterData(e.target.value);
+    }
+    const handleSearch = async () => {
+        try {
+            await getCategoryByCategoryCode(filterData).then((response) => {
+                setCategories([response.data]);
+            })
+        }
+        catch (error) {
+            console.log("Lỗi lọc sản phẩm " + error)
+        }
+    }
+
     return (
         <>
             <div className="container-admin">
-                <div className="content-product">
-                    <h1>Danh sách các sản phẩm</h1>
-                    <div className="search-product">
-                        <input
-                            type="text"
-                            placeholder="Nhập mã sản phẩm..."
-                        // value={idProductFilter}
-                        // onChange={(e) => setIdProductFilter(e.target.value)}
-                        />
-                        {/* <button onClick={handleFilter}>Lọc</button> */}
+                <div className="content-list">
+                    <div className="container-content-list">
+                        <div>
+                            <h2>Quản lý sản phẩm</h2>
+                            <p>Danh sách cách sản phẩm trong hệ thống</p>
+                        </div>
+                        <Link to="/admin/addProduct" className="btn-add-list">
+                            <IoAddOutline /> THÊM SẢN PHẨM
+                        </Link>
                     </div>
-                    <div className="tb-list-product">
+                    <div className="table-content-list">
+                        <div className="content-top-list">
+                            <div className="search-item-list">
+                                Tìm kiếm theo mã sản phẩm
+                                <div className="container-search-item-list">
+                                    <input
+                                        value={filterData}
+                                        onChange={handleFilterData}
+                                        placeholder="Nhập mã tìm kiếm ......."
+                                    />
+                                    <button
+                                        onClick={handleSearch}
+                                    >Tìm</button>
+                                </div>
+
+                            </div>
+                            <div className="filter-item-list">
+                                <div className="filter-sort">
+                                    <CgSortAz />
+                                </div>
+                                <div className="filter-download">
+                                    <MdFileDownload />
+                                </div>
+                            </div>
+                        </div>
+
+                        <table className="table-content-list-all">
+                            <thead>
+                                <tr>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Danh mục</th>
+                                    <th>Giá niêm yết</th>
+                                    <th>Số lượng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {displayData.map((product) => (
+
+                                    <tr key={product.id}>
+                                        <td style={{ color: "red", fontWeight: "bolder" }}>{product.productCode}</td>
+                                        <td>{product.productName}</td>
+                                        <td>{product.resCategory.categoryName}</td>
+                                        <td>
+                                            {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                product.resProductVariantDto[0]?.currentPrice)}
+                                        </td>
+                                        <td>{product.resProductVariantDto[0]?.stock}</td>
+                                        <td style={{
+                                            color:
+                                                product.resProductVariantDto[0]?.stock >= 10 ? 'green' :
+                                                    product.resProductVariantDto[0]?.stock > 0 ? 'yellow' : 'red',
+                                        }}>
+                                            {product.resProductVariantDto[0]?.stock >= 10 ? "Còn hàng" :
+                                                product.resProductVariantDto[0]?.stock > 0 ? "Sắp hết hàng" : "Hết hàng"}
+                                        </td>
+                                        <td>
+                                            <Link to={`/admin/product-variants/id/${product.id}`}>
+                                                <button className="btn-view" style={{
+                                                    border: 'none'
+                                                }}>
+                                                    <LiaEyeSolid />
+                                                </button>
+                                            </Link>
+                                            <Link to={`/admin/updateProduct/${product.id}`}>
+                                                <button className="btn-update" style={{
+                                                    marginLeft: '5px',
+                                                    border: 'none'
+                                                }}>
+                                                    <GoPencil />
+                                                </button>
+                                            </Link>
+                                            <Link to={`/admin/updateProduct/${product.id}`}>
+                                                <button className="btn-delete" style={{
+                                                    marginLeft: '5px',
+                                                    border: 'none'
+                                                }}>
+                                                    <FaRegTrashAlt />
+                                                </button>
+                                            </Link>
+                                        </td>
+
+                                    </tr>
+                                ))
+                                }
+
+                            </tbody>
+                        </table>
+                        <div>
+                            <div className="container-button-change-page">
+                                <PageNavigation
+                                    resData={products}
+                                    onPageChange={(items) => setDisplayData(items)}
+                                />
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* <div className="tb-list-product">
                         <table className="">
                             <thead>
                                 <tr>
@@ -82,7 +204,7 @@ function ListProduct() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>

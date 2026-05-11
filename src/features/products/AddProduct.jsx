@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import { getBrand } from "../../services/ApiBrand";
 import { postProduct } from "../../services/ApiProduct";
 import { getCategory } from "../../services/ApiCategory";
+import { FaCamera } from "react-icons/fa";
+import { GrDocument, GrScheduleNew } from "react-icons/gr";
+import { HiOutlineSpeakerphone } from "react-icons/hi";
 function AddProduct() {
     const [productCode, setProductCode] = useState("");
     const [productName, setProductName] = useState("");
-    const [quantityProduct, setQuantityProduct] = useState("");
     const [description, setDescription] = useState("");
     const [featured, setFeatured] = useState("");
     const [promotional, setPromotional] = useState("");
@@ -14,7 +16,7 @@ function AddProduct() {
     const [brandId, setBrandId] = useState("");
     const [urlPhoto, setUrlPhoto] = useState("");
 
-
+    const [previewUrl, setPreviewUrl] = useState(null);
 
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -49,15 +51,14 @@ function AddProduct() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = new FormData();
-        form.append("productCode", productCode);
-        form.append("productName", productName);
-        form.append("quantityProduct", quantityProduct);
-        form.append("description", description);
-        form.append("featured", featured);
-        form.append("promotional", promotional);
-        form.append("categoryId", categoryId);
-        form.append("brandId", brandId);
-        form.append("urlPhoto", urlPhoto);
+        form.append("ProductCode", productCode);
+        form.append("ProductName", productName);
+        form.append("Description", description);
+        form.append("IsFeatured", featured);
+        form.append("IsOnPromotion", promotional);
+        form.append("CategoryId", categoryId);
+        form.append("BrandId", brandId);
+        form.append("UrlImageProduct", urlPhoto);
         try {
             postProduct(form);
             alert("Thêm sản phẩm thành công");
@@ -74,136 +75,288 @@ function AddProduct() {
             console.log("Lỗi thêm sản phẩm " + error);
         }
     }
-
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            // Tạo một đường dẫn tạm thời cho file vừa chọn
+            const url = URL.createObjectURL(file);
+            setPreviewUrl(url);
+        }
+    };
     return (
         <>
             <div className='container-admin'>
-                <div className="content-add-product">
+                <div className="content-admin-add">
                     {/* {message && <p className="notification-success">Thêm thành công</p>}
                 {errorMessage && <p className="notification-error">Thêm không thành công</p>} */}
+                    <h1 style={{ lineHeight: '10px' }}>Thêm sản phẩm</h1>
+                    <p>Quản lý kho hàng và thông tin sản phẩm mới</p>
+                    <div className="form-container-add"
+                    >
+                        <div className="content-form-add-left">
+                            <h2 style={{ textAlign: 'center' }}>Tải ảnh sản phẩm lên</h2>
+                            <div className="item-form-common">
+                                <label htmlFor="urlPhoto"
+                                    style={{
+                                        border: '1px dashed red',
+                                        borderRadius: '5px',
+                                        margin: '0 23px',
+                                        width: '250px',
+                                        height: '200px',
+                                        backgroundColor: 'rgb(255,233,230)',
 
-                    <h1>Thêm sản phẩm</h1>
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        overflow: 'hidden',
+                                        justifyContent: 'center',
+                                        cursor: 'pointer',
+                                        color: 'rgb(40,28,38)'
+                                    }}
+                                >
+                                    {
+                                        previewUrl ? (
+                                            <img src={previewUrl} alt="Preview" className="preview-img" />
+                                        ) : (
+                                            <div>
+                                                <FaCamera />
+                                                <h3>Chọn ảnh sản phẩm</h3>
+                                                <p>PNG, JPG tối đa 5MB</p>
+                                            </div>
+                                        )
+                                    }
 
-                    <div className="form-container">
+                                </label>
+                                <input
+                                    style={{ display: 'none' }}
+                                    type="file"
+                                    id="urlPhoto"
+                                    name="urlPhoto"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            setUrlPhoto(file);
+                                            setPreviewUrl(URL.createObjectURL(file));
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="content-form-add-right">
+                            <div className="content-form-add-right-b1">
+                                <div className="title-form-b">
+                                    <i><GrDocument /></i>  <h3>Thông tin chung</h3>
+                                </div>
+                                <div>
+                                    <div className="c-form-b">
+                                        <div className="c-i-form-b">
+                                            <label htmlFor="productCode"
+                                                style={{
+                                                    display: 'block',
+                                                    marginBottom: '5px',
 
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-add-product">
-                                <div className="item-form-common">
-                                    <label htmlFor="productCode">Mã sản phẩm:</label>
-                                    <input
-                                        type="text"
-                                        id="productCode"
-                                        name="productCode"
-                                        value={productCode}
-                                        onChange={(e) => setProductCode(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="fullName">Tên sản phẩm:</label>
-                                    <input
-                                        type="text"
-                                        id="productName"
-                                        name="productName"
-                                        value={productName}
-                                        onChange={(e) => setProductName(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="description">Thông tin khuyến mãi:</label>
-                                    <input
-                                        type="text"
-                                        id="description"
-                                        name="description"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="quantityProduct">Số lượng nhập hàng:</label>
-                                    <input
-                                        type="number"
-                                        id="quantityProduct"
-                                        name="quantityProduct"
-                                        value={quantityProduct}
-                                        onChange={(e) => setQuantityProduct(e.target.value)}
-                                        required
-                                    />
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="categoryId">Danh mục sản phẩm:</label>
-                                    <select
-                                        id="categoryId"
-                                        name="categoryId"
-                                        value={categoryId}
-                                        onChange={(e) => setCategoryId(Number(e.target.value))}
-                                    >
-                                        <option value="">Chọn</option>
-                                        {categories.map((category) => (
-                                            <option key={category.id} value={category.id}>{category.categoryName}</option>
-                                        ))}
+                                                }}
+                                            >Mã sản phẩm</label>
+                                            <input
 
-                                    </select>
+                                                type="text"
+                                                id="productCode"
+                                                name="productCode"
+                                                value={productCode}
+                                                onChange={(e) => setProductCode(e.target.value)}
+                                                placeholder="VD: IP17-PRO-MAX"
+                                                required
+                                            />
+                                        </div>
+                                        <div className="c-i-form-b">
+                                            <label htmlFor="productName"
+                                                style={{
+                                                    display: 'block',
+                                                    marginBottom: '5px',
+
+                                                }}
+                                            >Tên sản phẩm</label>
+                                            <input
+
+                                                type="text"
+                                                id="productName"
+                                                name="productName"
+                                                value={productName}
+                                                onChange={(e) => setProductName(e.target.value)}
+                                                placeholder="VD: Iphone 17 Pro Max"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="brandId">Nhãn hiệu sản phẩm:</label>
-                                    <select
-                                        id="brandId"
-                                        name="brandId"
-                                        value={brandId}
-                                        onChange={(e) => setBrandId(Number(e.target.value))}
-                                    >
-                                        <option value="">Chọn</option>
-                                        {brands.map((brand) => (
-                                            <option key={brand.id} value={brand.id}>{brand.brandName}</option>
-                                        ))}
-                                    </select>
+
+                            </div>
+
+                            <div className="content-form-add-right-b1">
+                                <div className="title-form-b">
+                                    <i><GrScheduleNew /></i>  <h3>Phân loại & thương hiệu</h3>
                                 </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="featured">Sản phẩm nổi bật:</label>
-                                    <select
-                                        id="featured"
-                                        name="featured"
-                                        value={featured}
-                                        onChange={(e) => setFeatured(e.target.value)}
-                                    >
-                                        <option value="">Chọn</option>
-                                        <option value="true">Có</option>
-                                        <option value="false">Không</option>
-                                    </select>
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="promotional">Sản phẩm khuyến mãi:</label>
-                                    <select
-                                        id="promotional"
-                                        name="promotional"
-                                        value={promotional}
-                                        onChange={(e) => setPromotional(e.target.value)}
-                                    >
-                                        <option value="">Chọn</option>
-                                        <option value="true">Có</option>
-                                        <option value="false">Không</option>
-                                    </select>
-                                </div>
-                                <div className="item-form-common">
-                                    <label htmlFor="urlPhoto">Chọn ảnh sản phẩm:</label>
-                                    <input
-                                        type="file"
-                                        id="urlPhoto"
-                                        name="urlPhoto"
-                                        onChange={(e) => setUrlPhoto(e.target.files[0])}
-                                    />
-                                </div>
-                                <div className="container-button-add-product">
-                                    <button className='button-add' type="submit">Thêm</button>
+                                <div className="c-form-b">
+                                    <div className="c-i-form-b">
+                                        <label htmlFor="categoryId"
+                                            style={{
+                                                display: 'block',
+                                                marginBottom: '5px',
+
+                                            }}
+                                        >Danh mục sản phẩm</label>
+                                        <select
+                                            style={{
+                                                display: 'block',
+                                                marginTop: '7px',
+                                                width: '350px',
+                                                marginRight: '50px',
+                                                border: '1px solid rgb(205, 25, 24)',
+                                                height: '25px',
+                                                borderRadius: '5px'
+                                            }}
+                                            id="categoryId"
+                                            name="categoryId"
+                                            value={categoryId}
+                                            onChange={(e) => setCategoryId(Number(e.target.value))}
+                                        >
+                                            <option value="">Lựa chọn</option>
+                                            {categories.map((category) => (
+                                                <option key={category.id} value={category.id}>{category.categoryName}</option>
+                                            ))}
+                                        </select>
+
+                                    </div>
+                                    <div className="c-i-form-b">
+                                        <label htmlFor="brandId"
+                                            style={{
+                                                display: 'block',
+                                                marginBottom: '5px',
+
+                                            }}
+                                        >Nhãn hiệu sản phẩm</label>
+                                        <select
+                                            style={{
+                                                display: 'block',
+                                                marginTop: '7px',
+                                                width: '330px',
+                                                marginRight: '50px',
+                                                border: '1px solid rgb(205, 25, 24)',
+                                                height: '25px',
+                                                borderRadius: '5px'
+                                            }}
+                                            id="brandId"
+                                            name="brandId"
+                                            value={brandId}
+                                            onChange={(e) => setBrandId(Number(e.target.value))}
+                                        >
+                                            <option value="">Lựa chọn</option>
+                                            {brands.map((brand) => (
+                                                <option key={brand.id} value={brand.id}>{brand.brandName}</option>
+                                            ))}
+
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
+                            <div className="content-form-add-right-b1">
+                                <div className="title-form-b">
+                                    <i><HiOutlineSpeakerphone /></i>  <h3>Tiếp thị & Khuyến mãi</h3>
+                                </div>
+                                <div>
+                                    <div className="c-form-b">
+                                        <div className="c-i-form-b">
+                                            <label htmlFor="featured"
+                                                style={{
+                                                    display: 'block',
+                                                    marginBottom: '5px',
 
-                        </form>
+                                                }}
+                                            >Sản phẩm nổi bật
+                                            </label>
+                                            <select
+                                                style={{
+                                                    display: 'block',
+                                                    marginTop: '7px',
+                                                    width: '330px',
+                                                    marginRight: '50px',
+                                                    border: '1px solid rgb(205, 25, 24)',
+                                                    height: '25px',
+                                                    borderRadius: '5px'
+                                                }}
+                                                id="featured"
+                                                name="featured"
+                                                value={featured}
+                                                onChange={(e) => setFeatured(e.target.value)}
+                                            >
+                                                <option value="">Chọn</option>
+                                                <option value="true">Có</option>
+                                                <option value="false">Không</option>
+                                            </select>
+                                        </div>
+                                        <div className="c-i-form-b">
+                                            <label htmlFor="promotional"
+                                                style={{
+                                                    display: 'block',
+                                                    marginBottom: '5px',
+
+                                                }}
+                                            >Sản phẩm khuyến mãi</label>
+                                            <select
+                                                style={{
+                                                    display: 'block',
+                                                    marginTop: '7px',
+                                                    width: '330px',
+                                                    marginRight: '50px',
+                                                    border: '1px solid rgb(205, 25, 24)',
+                                                    height: '25px',
+                                                    borderRadius: '5px'
+                                                }}
+                                                id="promotional"
+                                                name="promotional"
+                                                value={promotional}
+                                                onChange={(e) => setPromotional(e.target.value)}
+                                            >
+                                                <option value="">Chọn</option>
+                                                <option value="true">Có</option>
+                                                <option value="false">Không</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div className="c-i-form-b">
+                                            <label htmlFor="description"
+                                                style={{
+                                                    display: 'block',
+                                                    marginBottom: '5px',
+                                                    marginLeft: '20px'
+
+                                                }}
+                                            >Thông tin khuyễn mãi</label>
+                                            <input
+                                                style={{
+                                                    height: '60px', width: '94%',
+                                                    margin: '0 20px'
+                                                }}
+                                                type="text"
+                                                id="description"
+                                                name="description"
+                                                value={description}
+                                                onChange={(e) => setDescription(e.target.value)}
+                                                placeholder="VD: Nhập chi tiết quà tặng, giảm giá..."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
+                    <button className='button-add' style={{ width: '40%', marginLeft: '30%' }} onClick={handleSubmit}>Thêm Danh mục</button>
+                    <p style={{ width: '40%', marginLeft: '35%' }}><b>Vui lòng kiểm tra chính xác thông tin trước khi gửi dữ liệu</b></p>
                 </div>
             </div>
         </>

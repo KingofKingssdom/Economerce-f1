@@ -51,65 +51,48 @@ function Sidebar() {
                         <div className='select-item'
                             onClick={
                                 () => {
-                                    tonggleShow();
+                                    // tonggleShow();
                                     setActiveDropdown("category");
                                 }}>
-                            <div className='content-item'>
-                                <i><MdCategory /></i>Danh mục<MdOutlineKeyboardArrowDown />
-                            </div>
+                            <Link to="/admin/listCategory" className='content-item'>
+                                <i><MdCategory /></i>Danh mục
+                            </Link>
                         </div>
-                        {show && <div className='item-select-child'>
-                            <Link to="/admin/addCategory" >
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i>  <p>Thêm danh mục mới</p>
-                                    </div>
 
-                                </div>
-                            </Link>
-                            <Link to="/admin/listCategory">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaListAlt /></i>  <p>Quản lý danh mục</p>
-                                    </div>
-
-                                </div>
-                            </Link>
-                        </div>}
                     </div>
                     <div className={`dropdown ${activeDropdown === "brand" ? "select-item-active" : ""}`}>
-                        <div className='select-item'>
-                            <div className='content-item'
-                                onClick={
-                                    () => {
-                                        tonggleBrand();
-                                        setActiveDropdown("brand");
-                                    }}
-                            >
-                                <i><MdOutlineSubject /></i>  Nhãn hiệu<MdOutlineKeyboardArrowDown />
-                            </div>
+                        <div className='select-item'
+                            onClick={
+                                () => {
+                                    // tonggleBrand();
+                                    setActiveDropdown("brand");
+                                }}
+                        >
+                            <Link to="/admin/listBrand" className='content-item'>
+                                <i><MdOutlineSubject /></i>  Nhãn hàng
+                            </Link>
+
+
                         </div>
-                        {brand && <div className='item-select-child'>
-                            <Link to="/admin/addBrand">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm nhãn hiệu</p>
-                                    </div>
 
-                                </div>
-
-                            </Link>
-                            <Link to="/admin/listBrand">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaListAlt /></i>  <p>Quản lý nhãn hiệu</p>
-                                    </div>
-
-                                </div>
-                            </Link>
-                        </div>}
                     </div>
                     <div className={`dropdown ${activeDropdown === "product" ? "select-item-active" : ""}`}>
+                        <div className='select-item'
+                            onClick={
+                                () => {
+                                    // tonggleBrand();
+                                    setActiveDropdown("brand");
+                                }}
+                        >
+                            <Link to="/admin/listProduct" className='content-item'>
+                                <i><MdOutlineSubject /></i>  Sản phẩm
+                            </Link>
+
+
+                        </div>
+
+                    </div>
+                    {/* <div className={`dropdown ${activeDropdown === "product" ? "select-item-active" : ""}`}>
                         <div className='select-item'
                             onClick={
                                 () => {
@@ -123,30 +106,6 @@ function Sidebar() {
 
                         </div>
                         {product && <div className='item-select-child'>
-                            <Link to="/admin/addProduct">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm sản phẩm</p>
-                                    </div>
-
-                                </div>
-                            </Link>
-                            <Link to="/admin/addProductColor">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm màu sắc sản phẩm</p>
-                                    </div>
-
-                                </div>
-                            </Link>
-                            <Link to="/admin/addProductVariant">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm phiên bản sản phẩm</p>
-                                    </div>
-
-                                </div>
-                            </Link>
                             <Link to="/admin/listProduct">
                                 <div className='select-item-child'>
                                     <div className='content-item'>
@@ -157,7 +116,7 @@ function Sidebar() {
 
                             </Link>
                         </div>}
-                    </div>
+                    </div> */}
 
                     <div className={`dropdown ${activeDropdown === "order" ? "select-item-active" : ""}`}
                     >

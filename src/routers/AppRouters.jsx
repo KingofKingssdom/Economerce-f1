@@ -40,6 +40,7 @@ import ScreenListProduct from "../features/user/screen/ScreenListProduct";
 import ScreenProductDetail from "../features/user/screen/ScreenProductDetail";
 import TiviListProduct from "../features/user/tivi/TiviListProduct";
 import TiviProductDetail from "../features/user/tivi/TiviProductDetail";
+import UpdateCateogry from "../features/categories/UpdateCategory";
 function AppRouters() {
     const [showButton, setShowButton] = useState(false);
 
@@ -108,17 +109,18 @@ function AppRouters() {
                     <Route path="/admin/listBrand" element={<ListBrand />} />
                     <Route path="/admin/addProduct" element={<AddProduct />} />
                     <Route path="/admin/addProductColor" element={<AddProductColor />} />
-                    <Route path="/admin/addProductVariant" element={<AddProductVariant />} />
+                    <Route path="/admin/addProductVariant/:productId" element={<AddProductVariant />} />
                     <Route path="/admin/listProduct" element={<ListProduct />} />
                     <Route path="/admin/listOrder" element={<ListOrder />} />
                     <Route path="/admin/addSpecification" element={<AddProductSpecification />} />
                     <Route path="/admin/addSpecificationDetail" element={<AddProductSpecificationDetail />} />
-                    <Route path="/admin/productDetail/:id" element={<ListProductDetail />} />
+                    <Route path="/admin/product-variants/id/:id" element={<ListProductDetail />} />
+                    <Route path="/admin/updateCategory/:id" element={<UpdateCateogry />} />
 
 
                     {/*   
                        
-                        <Route path="/admin/updateCategory/:id" element={<UpdateCategory />} />
+                        
                         
                       
                         

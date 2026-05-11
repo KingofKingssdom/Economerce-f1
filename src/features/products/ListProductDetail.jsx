@@ -4,15 +4,22 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import React from "react";
 import { FaPen } from "react-icons/fa";
+import { IoAddOutline } from "react-icons/io5";
+import { CgSortAz } from "react-icons/cg";
+import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { getProductVariantByProductId } from "../../services/ApiProduct";
+import { GoPencil } from "react-icons/go";
+import { FaRegTrashAlt } from "react-icons/fa";
 function ListProductDetail() {
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const { id } = useParams(); // Lấy id từ URL
-    const [product, setProduct] = useState(null);
+    const [productVariants, setProductVariants] = useState(null);
 
-    const fetchProduct = async () => {
+    const fetchProductVariant = async () => {
         try {
-            await getProductById(id).then((response) => {
-                setProduct(response.data)
+            await getProductVariantByProductId(id).then((response) => {
+                setProductVariants(response.data.result)
             })
         } catch (error) {
             console.log("Lỗi lấy sản phẩm theo id " + error)
@@ -20,119 +27,90 @@ function ListProductDetail() {
 
     }
     useEffect(() => {
-        fetchProduct()
-    }, [id])
+        fetchProductVariant()
+    }, [])
 
 
     return (
         <>
             <div className="container-admin">
-                <div className="content-list-product-detail">
-                    <h1>Chi tiết sản phẩm</h1>
-                    <div className="content-list-detail">
-                        <div className="box-detail-container ">
-                            <h3>Màu sắc sản phẩm</h3>
-                            <div className="content-box-detail">
-                                <table class="table-product-detail">
-                                    <thead>
-                                        <tr>
-                                            <th >Màu sắc</th>
-                                            <th >Ảnh màu sắc</th>
-                                            <th>Chỉnh sửa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {product?.productColors?.map((productColor, index) => (
-                                            <tr key={productColor.id || index}>
-                                                <td>{productColor.titleVariant}</td>
-                                                <td>
-                                                    <div className="frame-image">
-                                                        <img src={`${IMAGE_BASE_URL}${productColor.urlPhoto}`} alt="Ảnh nhãn hiệu"
-                                                            style={{ "objectFit": "containt" }}
-                                                        />
-                                                    </div>
-                                                </td>
-                                                <td><button className="btn btn-warning"><FaPen /></button></td>
-                                            </tr>
-                                        ))}
-
-                                    </tbody>
-                                </table>
-                            </div>
+                <div className="content-list">
+                    <div className="container-content-list">
+                        <div>
+                            <h2>Quản lý phiên bảng sản phẩm</h2>
+                            <p>Danh sách các phiên bản sản phẩm trong hệ thống</p>
                         </div>
-                        <div className="box-detail-container">
-                            <h3>Phiên bản sản phẩm</h3>
-                            <div className="content-box-detail">
-                                <table class="table-product-detail"
-                                >
-                                    <thead>
-                                        <tr>
-                                            <th>Bộ nhớ</th>
-                                            <th>Giá gốc</th>
-                                            <th >Giá giảm</th>
-                                            <th>Chỉnh sửa</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {product?.productVariants?.map((productVariant, index) => (
-                                            <tr key={productVariant.id || index}>
-                                                <td>{productVariant.storage}</td>
-                                                <td>
-                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
-                                                        productVariant.priceOrigin)}
-                                                </td>
-                                                <td>
-                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
-                                                        productVariant.priceDiscount)}
-
-                                                </td>
-                                                <td><button className="btn btn-warning"><FaPen /></button></td>
-                                            </tr>
-                                        ))}
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div className="box-detail-container">
-                            <h3>Thông số sản phẩm</h3>
-                            <div className="content-box-detail">
-                                <table class="table-product-detail"
-                                >
-
-                                    <tbody>
-                                        {product?.specifications?.map((spec) => {
-                                            const filteredDetails = spec.specificationDetails?.filter(
-                                                (detail) => detail.productId === product.id
-                                            );
-
-                                            // Không có detail đúng product → không render spec này
-                                            if (!filteredDetails || filteredDetails.length === 0) return null;
-
-                                            return (
-                                                <React.Fragment key={spec.id}>
-                                                    <tr className="table-secondary">
-                                                        <td colSpan="3">
-                                                            {spec.nameSpecification}
-                                                        </td>
-                                                    </tr>
-
-                                                    {filteredDetails.map((detail, i) => (
-                                                        <tr key={`${spec.id}-${i}`}>
-                                                            <td>{detail.labelSpecification}</td>
-                                                            <td>{detail.valueSpecification}</td>
-                                                            <td><button className="btn btn-warning"><FaPen /></button></td>
-                                                        </tr>
-                                                    ))}
-                                                </React.Fragment>
-                                            );
-                                        })}
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <Link to={`/admin/addProductVariant/${id}`} className="btn-add-list">
+                            <IoAddOutline /> THÊM PHIÊN BẢN
+                        </Link>
                     </div>
+                    <div className="table-content-list">
+                        <table className="table-content-list-all">
+                            <thead>
+                                <tr>
+                                    <th>Mã phiên bản</th>
+                                    <th>Dung lượng lưu trữ</th>
+                                    <th>Giá nhập kho</th>
+                                    <th>Giá niêm yết</th>
+                                    <th>Màu sắc</th>
+                                    <th>Ảnh phiên bản</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {productVariants ? (
+                                    productVariants.map((productVariant) => (
+
+                                        <tr key={productVariant.id}>
+                                            <td style={{ color: "red", fontWeight: "bolder", height: '20px' }}>{productVariant.id}</td>
+                                            <td>{productVariant.storage}</td>
+                                            <td>
+                                                {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                    productVariant.originPrice)}
+                                            </td>
+                                            <td>
+                                                {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                    productVariant.currentPrice)}
+                                            </td>
+                                            <td>{productVariant.colorName}</td>
+                                            <td><img style={{
+                                                maxWidth: '50px',
+                                                maxheight: '50px'
+                                            }} src={`${IMAGE_BASE_URL}${productVariant.urlProductColor}`} alt="Ảnh nhãn hiệu" /></td>
+                                            <td>
+
+                                                <Link to={`/admin/updateProduct/${productVariant.id}`}>
+                                                    <button className="btn-update" style={{
+                                                        marginLeft: '5px',
+                                                        border: 'none'
+                                                    }}>
+                                                        <GoPencil />
+                                                    </button>
+                                                </Link>
+                                                <Link to={`/admin/updateProduct/${productVariant.id}`}>
+                                                    <button className="btn-delete" style={{
+                                                        marginLeft: '5px',
+                                                        border: 'none'
+                                                    }}>
+                                                        <FaRegTrashAlt />
+                                                    </button>
+                                                </Link>
+                                            </td>
+
+                                        </tr>
+                                    ))
+                                ) : (<tr>
+                                    <td colSpan="5" style={{ textAlign: "center" }}>
+                                        Đang tải dữ liệu...
+                                    </td>
+                                </tr>)
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
                 </div>
             </div >
         </>

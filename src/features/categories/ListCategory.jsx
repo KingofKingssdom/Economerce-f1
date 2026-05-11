@@ -2,16 +2,18 @@ import "../../styles/index.css"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
-import { getCategory } from "../../services/ApiCategory";
+import { getCategory, getCategoryByCategoryCode } from "../../services/ApiCategory";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { IoAddOutline } from "react-icons/io5";
+import PageNavigation from "../../components/admin/ui/PageNavigation";
+import UpdateCateogry from "./UpdateCategory";
 function ListCategory() {
     const [categories, setCategories] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 5;
-    const indexOfLastItem = currentPage * pageSize;
-    const indexOfFirstItem = indexOfLastItem - pageSize;
-
+    const [displayData, setDisplayData] = useState([]);
+    const [filterData, setFilterData] = useState("");
+    const [idData, setIdData] = useState(0);
+    const [showBoxUpdate, setShowBoxUpdate] = useState(false)
     const fetchCategory = async () => {
         try {
             await getCategory().then((response) => {
@@ -26,31 +28,51 @@ function ListCategory() {
     useEffect(() => {
         fetchCategory()
     }, [])
-    const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(categories.length / pageSize);
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
+    const handleFilterData = (e) => {
+        setFilterData(e.target.value);
     }
+    const handleSearch = async () => {
+        try {
+            await getCategoryByCategoryCode(filterData).then((response) => {
+                setCategories([response.data]);
+            })
+        }
+        catch (error) {
+            console.log("Lỗi lọc danh mục " + error)
+        }
+    }
+    const handleUpdate = (id) => {
+        setShowBoxUpdate(true)
+        setIdData(id)
+    }
+
     return (
         <>
             <div className="container-admin">
 
                 <div className="content-list">
-                    <h2>DANH MỤC</h2>
-                    <p>Danh sách cách danh mục trong hệ thống</p>
+                    <div className="container-content-list">
+                        <div>
+                            <h2>DANH MỤC</h2>
+                            <p>Danh sách cách danh mục trong hệ thống</p>
+                        </div>
+                        <Link to="/admin/addCategory" className="btn-add-list">
+                            <IoAddOutline /> THÊM DANH MỤC
+                        </Link>
+                    </div>
+
                     <div className="table-content-list">
                         <div className="content-top-list">
                             <div className="search-item-list">
                                 Tìm kiếm theo mã danh mục
                                 <div className="container-search-item-list">
                                     <input
-                                        // value={ }
-                                        // onChange={ }
+                                        value={filterData}
+                                        onChange={handleFilterData}
                                         placeholder="Nhập mã tìm kiếm ......."
                                     />
                                     <button
-                                    // onChange={}
+                                        onClick={handleSearch}
                                     >Tìm</button>
                                 </div>
 
@@ -74,16 +96,21 @@ function ListCategory() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentItems.map((category) => (
+                                {displayData.map((category) => (
                                     <tr key={category.id}>
                                         <td style={{ color: "red", fontWeight: "bolder" }}>{category.categoryCode}</td>
                                         <td>{category.categoryName}</td>
                                         <td>
-                                            <Link to={`/admin/updateCategory/${category.id}`}>
-                                                <button className="btn btn-warning">
-                                                    <GoPencil />
-                                                </button>
-                                            </Link></td>
+
+                                            <button className="btn-update"
+                                                style={{
+                                                    border: "none"
+                                                }}
+                                                onClick={() => handleUpdate(category.id)}
+                                            >
+                                                <GoPencil />
+                                            </button>
+                                        </td>
 
                                     </tr>
                                 ))
@@ -93,58 +120,28 @@ function ListCategory() {
                         </table>
                         <div>
                             <div className="container-button-change-page">
-                                <button
-                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                                    style={{
-                                        border: '1px solid rgb(205, 25, 24)',
-                                        textAlign: 'center',
-                                        borderRadius: '3px',
-                                        backgroundColor: currentPage === 1 ? 'rgb(225, 98, 98)' : 'rgb(205, 25, 24)',
-                                        color: 'white',
-                                        fontSize: '17px',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <MdKeyboardArrowLeft />
-                                </button>
+                                <PageNavigation
+                                    resData={categories}
+                                    onPageChange={(items) => setDisplayData(items)}
+                                />
 
-                                {pageNumbers.map(number => (
-                                    <button
-                                        key={number}
-                                        onClick={() => setCurrentPage(number)}
-                                        style={{
-                                            backgroundColor: currentPage === number ? 'rgb(205, 25, 24)' : 'white',
-                                            fontWeight: currentPage === number ? 'bold' : 'normal',
-                                            color: currentPage == number ? 'white' : 'black',
-                                            cursor: "pointer",
-                                            border: '1px solid black'
-                                        }}
-                                    >
-                                        {number}
-                                    </button>
-                                ))}
-
-                                <button
-                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                                    style={{
-                                        border: '1px solid rgb(205, 25, 24)',
-                                        textAlign: 'center',
-                                        borderRadius: '3px',
-                                        backgroundColor: currentPage === totalPages ? 'rgb(225, 98, 98)' : 'rgb(205, 25, 24)',
-                                        color: 'white',
-                                        fontSize: '17px',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <MdKeyboardArrowRight />
-                                </button>
                             </div>
                         </div>
+                    </div>
+
+                </div>
+                <div className={`container-update-in-list ${showBoxUpdate ? 'active-box-update' : ''}`} >
+                    <div className={`container-box-update-content ${showBoxUpdate ? 'active-box-update-down' : ''}`}>
+                        <UpdateCateogry
+                            id={idData}
+                            onSuccess={() => setShowBoxUpdate(false)}
+                        />
                     </div>
 
                 </div>
             </div>
         </>
     )
+
 }
 export default ListCategory

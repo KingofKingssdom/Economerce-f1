@@ -34,7 +34,7 @@ function AddCateogry() {
                 {errorMessage && <p className="notification-error">{errorMessage}</p>} */}
                     <div className="header-add">
                         <h1>Thêm Danh mục</h1>
-                        <p>Quản lý các nhóm sản phẩm trong hệ thống cửa hàng của bạn</p>
+                        <p>Quản lý các nhóm danh mục trong hệ thống cửa hàng của bạn</p>
                     </div>
                     <div className="container-form-add">
                         <div className="form-container">

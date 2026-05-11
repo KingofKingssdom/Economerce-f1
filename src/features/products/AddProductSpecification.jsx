@@ -11,19 +11,19 @@ function AddProductSpecification() {
 
     const [products, setProducts] = useState([]);
 
-    const fetchProduct = async () => {
-        try {
-            await getProductAll().then((response) => {
-                setProducts(response.data.content)
-            })
+    // const fetchProduct = async () => {
+    //     try {
+    //         await getProductAll().then((response) => {
+    //             setProducts(response.data.content)
+    //         })
 
-        } catch (error) {
-            console.log("Lỗi lấy toàn bộ sản phẩm " + error);
-        }
-    }
-    useEffect(() => {
-        fetchProduct()
-    }, [])
+    //     } catch (error) {
+    //         console.log("Lỗi lấy toàn bộ sản phẩm " + error);
+    //     }
+    // }
+    // useEffect(() => {
+    //     fetchProduct()
+    // }, [])
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = new FormData();
@@ -61,7 +61,7 @@ function AddProductSpecification() {
                                         required
                                     />
                                 </div>
-                                <div className="">
+                                {/* <div className="">
                                     <label htmlFor="productId">Chọn sản phẩm: </label>
                                     <select
                                         id="productId"
@@ -75,7 +75,7 @@ function AddProductSpecification() {
                                         ))}
 
                                     </select>
-                                </div>
+                                </div> */}
                             </div>
 
 

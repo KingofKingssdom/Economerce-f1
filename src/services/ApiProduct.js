@@ -29,10 +29,10 @@ export function getProductByName(productName) {
     })
 }
 
-export function postProduct(value) {
-    return apiFetch("/product/create", {
+export function postProduct(formData) {
+    return apiFetch("/product", {
         method: "POST",
-        body: value
+        body: formData
     })
 }
 
@@ -43,10 +43,10 @@ export function postProductColor(value) {
     })
 
 }
-export function postProductVariant(value) {
-    return apiFetch("/productVariant/create", {
+export function postProductVariant(productId, formData) {
+    return apiFetch(`/product-variants/productId/${productId}`, {
         method: "POST",
-        body: value
+        body: formData
     })
 }
 
@@ -80,6 +80,11 @@ export function getProductByCategoryId(id) {
 }
 export function getProductByCategoryIdAndBrandId(categoryId, brandId) {
     return apiFetch(`/product/categoryId/${categoryId}/brandId/${brandId}`, {
+        method: "GET"
+    })
+}
+export function getProductVariantByProductId(productId) {
+    return apiFetch(`/product-variants/productId/${productId}`, {
         method: "GET"
     })
 }
