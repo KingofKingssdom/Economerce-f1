@@ -7,10 +7,13 @@ import { IoAddOutline } from "react-icons/io5";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload } from "react-icons/md";
 import PageNavigation from "../../components/admin/ui/PageNavigation";
+import UpdateBrand from "./UpdateBrand";
 function ListBrand() {
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const [brands, setBrands] = useState([]);
     const [displayData, setDisplayData] = useState([]);
+    const [showBoxUpdate, setShowBoxUpdate] = useState(false);
+    const [idData, setIdData] = useState(0);
     const fetchBrand = async () => {
         try {
             await getBrand().then((response) => {
@@ -23,6 +26,10 @@ function ListBrand() {
     useEffect(() => {
         fetchBrand()
     }, [])
+    const handleUpdate = (id) => {
+        setShowBoxUpdate(true)
+        setIdData(id)
+    }
     return (
         <>
             <div className="container-admin">
@@ -76,13 +83,18 @@ function ListBrand() {
                                     <tr key={brand.id || index}>
                                         <td>{brand.id}</td>
                                         <td>{brand.brandName}</td>
-                                        <td><img src={`${IMAGE_BASE_URL}${brand.urlImageBrand}`} alt="Ảnh nhãn hiệu" /></td>
+                                        <td><img style={{ maxHeight: '35px' }} src={`${IMAGE_BASE_URL}${brand.urlImageBrand}`} alt="Ảnh nhãn hiệu" /></td>
                                         <td>
-                                            <Link to={`/admin/updateBrand/${brand.id}`}>
-                                                <button className="btn btn-warning">
-                                                    <GoPencil />
-                                                </button>
-                                            </Link>
+
+                                            <button className="btn-update"
+                                                style={{
+                                                    border: "none"
+                                                }}
+                                                onClick={() => handleUpdate(brand.id)}
+                                            >
+                                                <GoPencil />
+                                            </button>
+
 
                                         </td>
                                     </tr>
@@ -99,6 +111,15 @@ function ListBrand() {
                             />
 
                         </div>
+                    </div>
+
+                </div>
+                <div className={`container-update-in-list ${showBoxUpdate ? 'active-box-update' : ''}`} >
+                    <div className={`container-box-update-content ${showBoxUpdate ? 'active-box-update-down' : ''}`}>
+                        <UpdateBrand
+                            id={idData}
+                            onSuccess={() => setShowBoxUpdate(false)}
+                        />
                     </div>
 
                 </div>

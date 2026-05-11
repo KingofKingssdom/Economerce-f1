@@ -35,7 +35,12 @@ export function postProduct(formData) {
         body: formData
     })
 }
-
+export function putProduct(id, formData) {
+    return apiFetch(`/product/${id}`, {
+        method: "PUT",
+        body: formData
+    })
+}
 export function postProductColor(value) {
     return apiFetch("/productColor/create", {
         method: "POST",
@@ -49,7 +54,12 @@ export function postProductVariant(productId, formData) {
         body: formData
     })
 }
-
+export function putProductVariant(id, productId, formData) {
+    return apiFetch(`/product-variantId/${id}/productId/${productId}`, {
+        method: "PUT",
+        body: formData
+    })
+}
 export function postProductSpecification(value) {
     return apiFetch("/productSpecification/create", {
         method: "POST",

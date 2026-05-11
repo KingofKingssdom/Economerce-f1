@@ -1,14 +1,16 @@
 import "../../styles/index.css"
 import { useState, useEffect } from "react";
 import { getProductAll } from "../../services/ApiProduct";
-import { postProductVariant } from "../../services/ApiProduct";
+import { putProductVariant } from "../../services/ApiProduct";
 import { FaCamera } from "react-icons/fa";
 import { GrDocument, GrScheduleNew } from "react-icons/gr";
 import { useParams } from "react-router-dom";
-function AddProductVariant() {
+function UpdateProductVariant(props) {
     // const [errorMessage, setErrorMessage] = useState("");
     // const [message, setMessage] = useState(false);
     const { productId } = useParams();
+    const idProductVariant = props.id
+    const close = props.onSuccess;
     const [storage, setStorage] = useState("");
     const [colorName, setColorName] = useState("");
     const [priceOrigin, setPriceOrigin] = useState(0);
@@ -19,18 +21,7 @@ function AddProductVariant() {
     const [urlPhoto, setUrlPhoto] = useState("");
 
     const [previewUrl, setPreviewUrl] = useState(null);
-    // const fethProductAll = async () => {
-    //     try {
-    //         await getProductAll().then((response) => {
-    //             setProducts(response.data)
-    //         })
-    //     } catch (error) {
-    //         console.log("Lỗi lấy toàn bộ sản phẩm " + error)
-    //     }
-    // }
-    // useEffect(() => {
-    //     fethProductAll();
-    // }, [])
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,8 +33,9 @@ function AddProductVariant() {
         form.append("ColorName", colorName);
         form.append("Stock", stock)
         try {
-            postProductVariant(productId, form);
-            alert("Thêm phiên bản sản phẩm thành công ");
+            putProductVariant(idProductVariant, productId, form);
+            alert("Cập nhập phiên bản sản phẩm thành công ");
+            close()
             setStorage("");
             setStock(0);
             setColorName("");
@@ -58,13 +50,12 @@ function AddProductVariant() {
     }
     return (
         <>
-            <div className='container-admin'>
-                <div className="content-admin-add">
+            <div className=''>
+                <div className="content-admin-add" style={{ margin: '10px auto', width: '95%', borderRadius: '10px', backgroundColor: 'rgb(255, 248, 247)' }}>
                     {/* {message && <p className="notification-success">Thêm thành công</p>}
                     {errorMessage && <p className="notification-error">Thêm không thành công</p>} */}
 
-                    <h1>Thêm phiên bản sản phẩm</h1>
-                    <p>Quản lý thông tin các phiên bản sản phẩm</p>
+                    <h1 style={{ lineHeight: '40px', margin: '0px 300px' }}>Cập nhập phiên bản sản phẩm</h1>
                     <div className="form-container-add">
                         <div className="content-form-add-left">
                             <h2 style={{ textAlign: 'center' }}>Tải ảnh sản phẩm lên</h2>
@@ -235,14 +226,15 @@ function AddProductVariant() {
 
                             </div>
 
-                            <button className='button-add' style={{ width: '40%', marginLeft: '30%' }} onClick={handleSubmit}>Thêm phiên bản</button>
+                            <button className='button-add' style={{ width: '40%', marginLeft: '30%' }} onClick={handleSubmit}>Cập nhập phiên bản</button>
                             <p style={{ width: '55%', marginLeft: '25%' }}><b>Vui lòng kiểm tra chính xác thông tin trước khi gửi dữ liệu</b></p>
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </>
     )
 }
-export default AddProductVariant;
+export default UpdateProductVariant;

@@ -1,9 +1,9 @@
 import "../../styles/index.css"
-import { useState } from "react";
-import { putCategory } from "../../services/ApiCategory";
+import { useState, useEffect } from "react";
+import { putBrand } from "../../services/ApiBrand";
 import { useParams } from "react-router-dom";
 import { getCategory } from "../../services/ApiCategory";
-function UpdateCateogry(props) {
+function UpdateBrand(props) {
     const idBrand = props.id
     const close = props.onSuccess;
     // const [categoryCode, setCategoryCode] = useState("");
@@ -43,7 +43,7 @@ function UpdateCateogry(props) {
         form.append("UrlImageBrand", urlImageBrand);
         form.append("CategoryIds", categoryId);
         try {
-            await postBrand(idBrand, form);
+            await putBrand(idBrand, form);
             alert("Cập nhập nhãn hiệu thành công ")
             close();
             setBrandCode("");
@@ -107,7 +107,7 @@ function UpdateCateogry(props) {
                                             htmlFor="categoryId"
                                             style={{
                                                 position: 'absolute',
-                                                top: '240px',
+                                                top: '180px',
                                                 right: '450px',
                                                 fontWeight: 'bolder'
                                             }}>DANH MỤC SẢN PHẨM</label>
@@ -139,7 +139,7 @@ function UpdateCateogry(props) {
                                     <div className="item-form-content">
                                         <label htmlFor="brandName" style={{
                                             fontWeight: 'bolder',
-                                            marginLeft: '-85px'
+                                            marginLeft: '-55px'
                                         }}>TÊN NHÃN HÀNG</label>
                                         <input
                                             className="input-form"
@@ -185,4 +185,4 @@ function UpdateCateogry(props) {
         </>
     )
 }
-export default UpdateCateogry;
+export default UpdateBrand;

@@ -18,7 +18,7 @@ export function getBrandByCategoryId(id) {
 }
 export function putBrand(id, formdata) {
     return apiFetch(`/brand/${id}`, {
-        method: "POST",
+        method: "PUT",
         body: formdata
     })
 }

@@ -12,7 +12,6 @@ import ListCategory from "../features/categories/ListCategory";
 import AddBrand from "../features/brands/AddBrand";
 import ListBrand from "../features/brands/ListBrand";
 import AddProduct from "../features/products/AddProduct";
-import AddProductColor from "../features/products/AddProductColor";
 import AddProductVariant from "../features/products/AddProductVariant";
 import ListProduct from "../features/products/ListProduct";
 import ListOrder from "../features/order/ListOrder";
@@ -108,7 +107,6 @@ function AppRouters() {
                     <Route path="/admin/addBrand" element={<AddBrand />} />
                     <Route path="/admin/listBrand" element={<ListBrand />} />
                     <Route path="/admin/addProduct" element={<AddProduct />} />
-                    <Route path="/admin/addProductColor" element={<AddProductColor />} />
                     <Route path="/admin/addProductVariant/:productId" element={<AddProductVariant />} />
                     <Route path="/admin/listProduct" element={<ListProduct />} />
                     <Route path="/admin/listOrder" element={<ListOrder />} />

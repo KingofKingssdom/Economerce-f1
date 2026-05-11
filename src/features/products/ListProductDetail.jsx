@@ -11,11 +11,13 @@ import { Link } from "react-router-dom";
 import { getProductVariantByProductId } from "../../services/ApiProduct";
 import { GoPencil } from "react-icons/go";
 import { FaRegTrashAlt } from "react-icons/fa";
+import UpdateProductVariant from "./UpdateProductVariant";
 function ListProductDetail() {
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
     const { id } = useParams(); // Lấy id từ URL
     const [productVariants, setProductVariants] = useState(null);
-
+    const [showBoxUpdate, setShowBoxUpdate] = useState(false);
+    const [idData, setIdData] = useState(0);
     const fetchProductVariant = async () => {
         try {
             await getProductVariantByProductId(id).then((response) => {
@@ -30,7 +32,10 @@ function ListProductDetail() {
         fetchProductVariant()
     }, [])
 
-
+    const handleUpdate = (id) => {
+        setShowBoxUpdate(true)
+        setIdData(id)
+    }
     return (
         <>
             <div className="container-admin">
@@ -78,15 +83,15 @@ function ListProductDetail() {
                                                 maxheight: '50px'
                                             }} src={`${IMAGE_BASE_URL}${productVariant.urlProductColor}`} alt="Ảnh nhãn hiệu" /></td>
                                             <td>
+                                                <button className="btn-update" style={{
+                                                    marginLeft: '5px',
+                                                    border: 'none'
+                                                }}
+                                                    onClick={() => handleUpdate(productVariant.id)}
+                                                >
+                                                    <GoPencil />
+                                                </button>
 
-                                                <Link to={`/admin/updateProduct/${productVariant.id}`}>
-                                                    <button className="btn-update" style={{
-                                                        marginLeft: '5px',
-                                                        border: 'none'
-                                                    }}>
-                                                        <GoPencil />
-                                                    </button>
-                                                </Link>
                                                 <Link to={`/admin/updateProduct/${productVariant.id}`}>
                                                     <button className="btn-delete" style={{
                                                         marginLeft: '5px',
@@ -109,6 +114,15 @@ function ListProductDetail() {
                             </tbody>
                         </table>
 
+                    </div>
+
+                </div>
+                <div className={`container-update-in-list ${showBoxUpdate ? 'active-box-update' : ''}`} >
+                    <div className={`container-box-update-content ${showBoxUpdate ? 'active-box-update-down' : ''}`}>
+                        <UpdateProductVariant
+                            id={idData}
+                            onSuccess={() => setShowBoxUpdate(false)}
+                        />
                     </div>
 
                 </div>

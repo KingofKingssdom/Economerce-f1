@@ -10,8 +10,11 @@ import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import PageNavigation from "../../components/admin/ui/PageNavigation";
 import { LiaEyeSolid } from "react-icons/lia";
+import UpdateProduct from "./UpdateProduct";
 function ListProduct() {
     const [products, setProducts] = useState([]);
+    const [showBoxUpdate, setShowBoxUpdate] = useState(false);
+    const [idData, setIdData] = useState(0);
     const fetchProducAll = async () => {
         try {
             await getProductAll().then((response) => {
@@ -40,7 +43,10 @@ function ListProduct() {
             console.log("Lỗi lọc sản phẩm " + error)
         }
     }
-
+    const handleUpdate = (id) => {
+        setShowBoxUpdate(true)
+        setIdData(id)
+    }
     return (
         <>
             <div className="container-admin">
@@ -120,14 +126,14 @@ function ListProduct() {
                                                     <LiaEyeSolid />
                                                 </button>
                                             </Link>
-                                            <Link to={`/admin/updateProduct/${product.id}`}>
-                                                <button className="btn-update" style={{
-                                                    marginLeft: '5px',
-                                                    border: 'none'
-                                                }}>
-                                                    <GoPencil />
-                                                </button>
-                                            </Link>
+
+                                            <button className="btn-update" style={{
+                                                border: "none",
+                                                marginLeft: "5px"
+                                            }}
+                                                onClick={() => handleUpdate(product.id)}>
+                                                <GoPencil />
+                                            </button>
                                             <Link to={`/admin/updateProduct/${product.id}`}>
                                                 <button className="btn-delete" style={{
                                                     marginLeft: '5px',
@@ -205,6 +211,15 @@ function ListProduct() {
                             </tbody>
                         </table>
                     </div> */}
+
+                </div>
+                <div className={`container-update-in-list ${showBoxUpdate ? 'active-box-update' : ''}`} >
+                    <div className={`container-box-update-content ${showBoxUpdate ? 'active-box-update-down' : ''}`}>
+                        <UpdateProduct
+                            id={idData}
+                            onSuccess={() => setShowBoxUpdate(false)}
+                        />
+                    </div>
 
                 </div>
             </div>
