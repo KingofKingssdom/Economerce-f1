@@ -1,7 +1,7 @@
 import apiFetch from "./ApiClient";
 
-export function getOrder() {
-    return apiFetch("/order/search/all", {
+export function getAllOrder() {
+    return apiFetch("/order", {
         method: "GET"
     })
 }
@@ -51,5 +51,10 @@ export function getOrderItemByOrderId(orderId) {
 export function deleteOrderByOrderId(selectedOrderId) {
     return apiFetch(`/order/delete?orderId=${selectedOrderId}&status=CANCELLED`, {
         method: "PUT"
+    })
+}
+export function getAllOrderDetailByOrderId(id) {
+    return apiFetch(`/order-items/orderId/${id}`, {
+        method: "GET",
     })
 }

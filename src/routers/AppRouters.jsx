@@ -40,6 +40,7 @@ import ScreenProductDetail from "../features/user/screen/ScreenProductDetail";
 import TiviListProduct from "../features/user/tivi/TiviListProduct";
 import TiviProductDetail from "../features/user/tivi/TiviProductDetail";
 import UpdateCateogry from "../features/categories/UpdateCategory";
+import ListOrderDetail from "../features/order/ListOrderDetail";
 function AppRouters() {
     const [showButton, setShowButton] = useState(false);
 
@@ -114,7 +115,7 @@ function AppRouters() {
                     <Route path="/admin/addSpecificationDetail" element={<AddProductSpecificationDetail />} />
                     <Route path="/admin/product-variants/id/:id" element={<ListProductDetail />} />
                     <Route path="/admin/updateCategory/:id" element={<UpdateCateogry />} />
-
+                    <Route path="/admin/orderDetail/:id" element={<ListOrderDetail />} />
 
                     {/*   
                        
@@ -128,7 +129,7 @@ function AppRouters() {
                         <Route path="/admin/updateProduct/:id" element={<UpdateProduct />} />
                         <Route path="/admin/listUser" element={<ListUser />} />
                        
-                        <Route path="/admin/orderDetail/:id" element={<ListOrderDetail />} />
+                        
                         
                        
                         

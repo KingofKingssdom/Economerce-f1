@@ -92,58 +92,23 @@ function Sidebar() {
                         </div>
 
                     </div>
-                    {/* <div className={`dropdown ${activeDropdown === "product" ? "select-item-active" : ""}`}>
-                        <div className='select-item'
-                            onClick={
-                                () => {
-                                    tongleProduct();
-                                    setActiveDropdown("product");
-                                }}
-                        >
-                            <div className='content-item'>
-                                <i><AiFillProduct /></i>  Sản phẩm <MdOutlineKeyboardArrowDown />
-                            </div>
 
-                        </div>
-                        {product && <div className='item-select-child'>
-                            <Link to="/admin/listProduct">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaListAlt /></i>  <p>Quản lý sản phẩm</p>
-                                    </div>
-
-                                </div>
-
-                            </Link>
-                        </div>}
-                    </div> */}
 
                     <div className={`dropdown ${activeDropdown === "order" ? "select-item-active" : ""}`}
                     >
                         <div className='select-item'
                             onClick={
                                 () => {
-                                    tongleOrder();
+                                    // tongleOrder();
                                     setActiveDropdown("order");
                                 }}
                         >
-                            <div className='content-item'>
-                                <i><FaFileInvoiceDollar /></i>  Đơn hàng <MdOutlineKeyboardArrowDown />
-                            </div>
-
-                        </div>
-                        {order && <div className='item-select-child'>
-                            <Link to="/admin/listOrder">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaListAlt /></i>  <p>Quản lý đơn hàng</p>
-                                    </div>
-
-                                </div>
-
+                            <Link to="/admin/listOrder" className='content-item'>
+                                <i><FaFileInvoiceDollar /></i>  Đơn hàng
                             </Link>
 
-                        </div>}
+                        </div>
+
                     </div>
                     <div className={`dropdown ${activeDropdown === "specification" ? "select-item-active" : ""}`}
                     >
