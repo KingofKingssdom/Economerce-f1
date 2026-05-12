@@ -8,7 +8,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import PageNavigation from "../../components/admin/ui/PageNavigation";
+import PageNavigation from "../../components/admin/ui/PageNavigation"
 import { LiaEyeSolid } from "react-icons/lia";
 function ListOrder() {
     const [orders, setOrders] = useState([]);
@@ -64,7 +64,7 @@ function ListOrder() {
                     <div className="container-content-list">
                         <div>
                             <h2>Quản lý đơn hàng</h2>
-                            <p>Theo dõi và xử lý các giao dịch khách hàng    trong hệ thống</p>
+                            <p>Theo dõi và xử lý các giao dịch khách hàng trong hệ thống</p>
                         </div>
                         <div className="btn-add-list">
                             <IoAddOutline /> Xuất báo cáo

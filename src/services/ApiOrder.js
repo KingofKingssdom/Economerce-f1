@@ -63,3 +63,13 @@ export function getAllOrderDetailByOrderId(id) {
         method: "GET",
     })
 }
+export function getCountOrder() {
+    return apiFetch(`/order/count`, {
+        method: "GET",
+    })
+}
+export function getTotalPrice(orderStatus) {
+    return apiFetch(`/order/total-prices/${orderStatus}`, {
+        method: "GET",
+    })
+}

@@ -32,3 +32,8 @@ export function getUserCurrent() {
         method: "GET"
     })
 }
+export function getCountUser() {
+    return apiFetch(`/user/count`, {
+        method: "GET"
+    })
+}

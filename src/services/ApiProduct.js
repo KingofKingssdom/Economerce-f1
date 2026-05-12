@@ -98,3 +98,8 @@ export function getProductVariantByProductId(productId) {
         method: "GET"
     })
 }
+export function getTotalProduct() {
+    return apiFetch(`/product-variants/total-products`, {
+        method: "GET"
+    })
+}
