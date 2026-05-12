@@ -5,9 +5,16 @@ import { MdOutlinePhone, MdOutlineEmail } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { getOrderItemByOrderId } from "../../services/ApiOrder";
 import { useParams } from "react-router-dom";
+import { putOrderStatus } from "../../services/ApiOrder";
 function ListOrderDetail() {
     const { id } = useParams();
     const [orderDetails, setOrderDetails] = useState([]);
+    const [status, setStatus] = useState(0);
+
+    const handleChange = (e) => {
+        const selectedValue = Number(e.target.value);
+        setStatus(selectedValue);
+    }
 
     const fetchOrderItems = async () => {
         try {
@@ -21,7 +28,19 @@ function ListOrderDetail() {
     useEffect(() => {
         fetchOrderItems();
     }, []);
-    console.log(orderDetails)
+
+    const handleUpdate = async () => {
+        try {
+            await putOrderStatus(id, status);
+            alert("Cập nhập thành công")
+        } catch (error) {
+            console.error("Lỗi gọi API cập nhập trạng thái đơn hàng:", error);
+        }
+    };
+    let total = 0;
+    orderDetails.forEach(item => {
+        total += item.totalPrice;
+    })
     return (
         <>
             <div className="container-admin">
@@ -86,13 +105,16 @@ function ListOrderDetail() {
                                                     {item.productName}
                                                 </div>
                                                 <div>
-                                                    {item.priceAtTime}
+                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                        item.priceAtTime)}
                                                 </div>
                                                 <div>
                                                     {item.quantity}
                                                 </div>
                                                 <div>
-                                                    {item.totalPrice}
+                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                        item.totalPrice)}
+
                                                 </div>
                                             </div>
                                         ))}
@@ -102,7 +124,11 @@ function ListOrderDetail() {
                                         <div>
                                             <div className="order-ft-item">
                                                 <p style={{ fontWeight: 'bolder' }}>Tạm tính</p>
-                                                <p style={{ marginLeft: '30px' }}>5244000</p>
+                                                <p style={{ marginLeft: '30px' }}>
+                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                        total)}
+
+                                                </p>
                                             </div>
                                             <div className="order-ft-item">
                                                 <p style={{ fontWeight: 'bolder' }}>Phí vận chuyển</p>
@@ -110,7 +136,10 @@ function ListOrderDetail() {
                                             </div>
                                             <div className="order-ft-total">
                                                 <p>Tổng cộng</p>
-                                                <p>Tổng tiền</p>
+                                                <p>
+                                                    {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                                                        total)}
+                                                </p>
                                             </div>
                                         </div>
 
@@ -127,8 +156,15 @@ function ListOrderDetail() {
                                                 width: '300px',
                                                 height: '30px',
                                                 borderRadius: '5px'
-                                            }}>
-                                                <option>Đang giao hàng</option>
+                                            }}
+                                                value={status}
+                                                onChange={handleChange}
+                                            >
+                                                <option value={0}>Chờ xác nhận</option>
+                                                <option value={1}>Đã xác nhận</option>
+                                                <option value={2}>Đang giao hàng</option>
+                                                <option value={3}>Đã giao hàng</option>
+                                                <option value={4}>Đã hủy</option>
                                             </select>
                                             <div>
                                                 <button style={{
@@ -141,13 +177,15 @@ function ListOrderDetail() {
                                                     width: '100%',
                                                     cursor: 'pointer'
 
-                                                }}>Cập nhập trạng thái</button>
+                                                }}
+                                                    onClick={handleUpdate}
+                                                >Cập nhập trạng thái</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="order-side-t">
                                         <div className="order-side-t-h">
-                                            <h4>Khách hàng</h4>
+                                            <h4>Thông tin nhận hàng</h4>
                                         </div>
                                         <div>
                                             <div style={{
@@ -171,8 +209,8 @@ function ListOrderDetail() {
                                                 <div>
                                                     <p style={{
                                                         lineHeight: '5px'
-                                                    }}>Nguyễn văn A</p>
-                                                    <p style={{ lineHeight: '10px' }}>Mã khách hàng</p>
+                                                    }}>Khách hàng</p>
+                                                    <p style={{ lineHeight: '10px' }}>{orderDetails[0]?.receiverName}</p>
                                                 </div>
 
                                             </div>
@@ -200,8 +238,8 @@ function ListOrderDetail() {
                                                 <div>
                                                     <p style={{
                                                         lineHeight: '5px'
-                                                    }}>Email</p>
-                                                    <p style={{ lineHeight: '10px' }}>Da@gmail.com</p>
+                                                    }}>Địa chỉ</p>
+                                                    <p style={{ lineHeight: '10px' }}>{orderDetails[0]?.shippingAddress}</p>
                                                 </div>
 
                                             </div>
@@ -228,7 +266,7 @@ function ListOrderDetail() {
                                                         <p style={{
                                                             lineHeight: '5px'
                                                         }}>Điện thoại</p>
-                                                        <p style={{ lineHeight: '5px' }}>0941256</p>
+                                                        <p style={{ lineHeight: '5px' }}>{orderDetails[0]?.receiverPhone}</p>
                                                     </div>
 
                                                 </div>

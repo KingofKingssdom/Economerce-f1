@@ -34,7 +34,12 @@ export function postOrderPay(value) {
     })
 
 }
+export function putOrderStatus(orderId, newOrderStatus) {
+    return apiFetch(`/order/orderId/${orderId}/newOrderStatus/${newOrderStatus}`, {
+        method: "PUT"
+    })
 
+}
 export function getOrderByUser() {
     return apiFetch("/order/all", {
         method: "GET",

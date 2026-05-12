@@ -66,9 +66,9 @@ function ListOrder() {
                             <h2>Quản lý đơn hàng</h2>
                             <p>Theo dõi và xử lý các giao dịch khách hàng    trong hệ thống</p>
                         </div>
-                        <Link to="/admin/addProduct" className="btn-add-list">
+                        <div className="btn-add-list">
                             <IoAddOutline /> Xuất báo cáo
-                        </Link>
+                        </div>
                     </div>
                     <div className="table-content-list">
                         <div className="content-top-list">
