@@ -1,6 +1,6 @@
-import "../../styles/index.css"
-import Category from "../../components/users/ui/Category";
-import SearchProduct from "../../features/SearchProduct";
+import "../../../styles/index.css"
+import Category from "../ui/Category";
+import SearchProduct from "../ui/SearchProduct";
 import { CiViewList } from "react-icons/ci";
 import { IoMdSearch, IoIosClose } from "react-icons/io";
 import { FaCartPlus, FaRegUser } from "react-icons/fa";
@@ -9,7 +9,7 @@ import { LuTruck } from "react-icons/lu";
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { MdOutlineLogout } from "react-icons/md";
-import { getUserCurrent } from "../../services/ApiAuth";
+import { getUserCurrent } from "../../../services/ApiAuth";
 function Header() {
 
     const location = useLocation();

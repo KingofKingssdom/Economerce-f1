@@ -1,6 +1,6 @@
-import "../styles/index.css"
+import "../../../styles/index.css"
 import { useState, useEffect } from "react";
-import { getProductByName } from "../services/ApiProduct"
+import { getProductByName } from "../../../services/ApiProduct";
 import { Link } from 'react-router-dom';
 function SearchProduct(props) {
     const API_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;
@@ -38,7 +38,7 @@ function SearchProduct(props) {
             {results.length > 0 ? (
                 <ul className="search-results">
                     {results.map((item) => (
-                        < Link to={`${item.categoryId === 1
+                        < Link to={`${item.resCategory.id === 1
                             ? "/phoneDetail"
                             : item.categoryId === 2
                                 ? "/laptop"

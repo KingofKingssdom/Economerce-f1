@@ -2,7 +2,7 @@ import "../styles/index.css"
 import { useState, useEffect } from "react";
 import { Route, Routes } from 'react-router-dom';
 import { IoIosArrowUp } from "react-icons/io";
-import UserLayout from "../layouts/UserLayout";
+import UserLayout from "../components/users/layouts/UserLayout";
 import AdminLayout from "../components/admin/layouts/AdminLayout";
 import AdminHomePage from "../components/admin/pages/AdminHomePage";
 import AddCategory from "../components/admin/features/categories/AddCategory";
@@ -17,33 +17,32 @@ import ListProductDetail from "../components/admin/features/products/ListProduct
 import ListOrderDetail from "../components/admin/features/orders/ListOrderDetail";
 import ListProductSpecification from "../components/admin/features/products/ListProductSpecification";
 import AddProductSpecification from "../components/admin/features/products/AddProductSpecification";
-import HomePage from "../pages/user/HomePage";
+
 import Login from "../features/Login";
-
-
-import AddProductSpecificationDetail from "../features/products/AddProductSpecificationDetail";
-import PhoneProductDetail from "../features/user/phone/PhoneProductDetail";
-import Cart from "../features/user/cart/Cart";
-import PayMethod from "../features/user/pay/Paymethod";
-import PayResult from "../features/user/pay/Payresult";
-import Order from "../features/user/order/Order";
-import OrderDetail from "../features/user/order/OrderDetail";
-import PhoneListProduct from "../features/user/phone/PhoneListProduct";
-import { ImImage } from "react-icons/im";
+import AddProductSpecificationDetail from "../components/admin/features/products/AddProductSpecification";
 import AdminProtectedRoute from "./AdminProtectedRoute"
-import TabletProduct from "../features/user/tablet/TabletListProduct";
-import LaptopListProduct from "../features/user/laptop/LaptopListProduct";
-import TabletProductDetail from "../features/user/tablet/TabletProductDetail";
-import LaptopProductDetail from "../features/user/laptop/LaptopProductDetail";
-import SoundListProduct from "../features/user/sound/SoundListProduct";
-import SoundProductDetail from "../features/user/sound/SoundProductDetail";
-import WatchListProduct from "../features/user/watch/WatchListProduct";
-import WatchProductDetail from "../features/user/watch/WatchProductDetail";
-import ScreenListProduct from "../features/user/screen/ScreenListProduct";
-import ScreenProductDetail from "../features/user/screen/ScreenProductDetail";
-import TiviListProduct from "../features/user/tivi/TiviListProduct";
-import TiviProductDetail from "../features/user/tivi/TiviProductDetail";
 
+import HomePage from "../components/users/pages/HomePage";
+import PhoneProductDetail from "../components/users/features/phone/PhoneProductDetail";
+import Cart from "../components/users/features/cart/Cart";
+import PayMethod from "../components/users/features/pay/Paymethod";
+import PayResult from "../components/users/features/pay/Payresult";
+import Order from "../components/users/features/order/Order";
+import OrderDetail from "../components/users/features/order/OrderDetail";
+import PhoneListProduct from "../components/users/features/phone/PhoneListProduct";
+import TabletProduct from "../components/users/features/tablet/TabletListProduct";
+import LaptopListProduct from "../components/users/features/laptop/LaptopListProduct";
+import TabletProductDetail from "../components/users/features/tablet/TabletProductDetail";
+import LaptopProductDetail from "../components/users/features/laptop/LaptopProductDetail";
+import SoundListProduct from "../components/users/features/sound/SoundListProduct";
+import SoundProductDetail from "../components/users/features/sound/SoundProductDetail";
+import WatchListProduct from "../components/users/features/watch/WatchListProduct";
+import WatchProductDetail from "../components/users/features/watch/WatchProductDetail";
+import ScreenListProduct from "../components/users/features/screen/ScreenListProduct";
+import ScreenProductDetail from "../components/users/features/screen/ScreenProductDetail";
+import TiviListProduct from "../components/users/features/tivi/TiviListProduct";
+import TiviProductDetail from "../components/users/features/tivi/TiviProductDetail";
+import { ImImage } from "react-icons/im";
 function AppRouters() {
     const [showButton, setShowButton] = useState(false);
 

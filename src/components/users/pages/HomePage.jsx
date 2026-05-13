@@ -1,8 +1,8 @@
-import "../../styles/index.css"
-import HotSaleProduct from "../../components/users/ui/HotSaleProduct";
-import OutStandingProduct from "../../components/users/ui/OutStandingProduct";
-import ExperienceBuy from "../../components/users/ui/ExperienceBuy"
-import CategoryBox from "../../components/users/ui/CategoryBox";
+import "../../../styles/index.css"
+import HotSaleProduct from "../ui/HotSaleProduct";
+import OutStandingProduct from "../ui/OutStandingProduct";
+import ExperienceBuy from "../ui/ExperienceBuy";
+import CategoryBox from "../ui/CategoryBox";
 import AOS from "aos";
 import { useEffect } from "react";
 import "aos/dist/aos.css";

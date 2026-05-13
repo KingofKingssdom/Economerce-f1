@@ -33,13 +33,11 @@
 
 .main-layout-left,
 .main-layout-right {
-    background-color: rgb(255, 229, 208);
     flex: 1;
 
 }
 
 .main-layout-center {
-    background-color: white;
     width: 100%;
     max-width: 1200px;
 }
@@ -3131,9 +3129,6 @@ span i {
 
     }
 
-    .main-layout-center {
-        background-color: red;
-    }
 
     .day-sale {
         font-size: 16px;
@@ -3281,13 +3276,6 @@ span i {
         display: flex;
         padding: 0 16px;
     }
-
-    .main-layout-center {
-        background-color: blue;
-    }
-
-
-
 
     .day-sale {
         font-size: 15px;

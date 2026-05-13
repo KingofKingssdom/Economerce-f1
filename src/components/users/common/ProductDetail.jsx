@@ -241,7 +241,7 @@ function ProductDetail(props) {
                                     onClick={closeBoxSpecification}
                                 >X</div>
                             </div>
-                            <div className="specification-table-bottom">
+                            {/* <div className="specification-table-bottom">
                                 <div className="specification-table-bottom">
                                     <div className="table-bottom">
                                         {props.data.resProductSpecification.map((spec) => (
@@ -270,7 +270,7 @@ function ProductDetail(props) {
                                         ))}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

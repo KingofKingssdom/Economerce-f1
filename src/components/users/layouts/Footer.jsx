@@ -1,4 +1,4 @@
-import "../../styles/index.css"
+import "../../../styles/index.css"
 
 function Footer() {
 
@@ -13,12 +13,12 @@ function Footer() {
                         <p>Gọi bảo hành<strong>1800.2064</strong>(8h00 - 21h00)</p>
 
                         <h3>Phương thức thanh toán</h3>
-                        <div class="payment-methods">
+                        <div className="payment-methods">
                             <img alt="VNPay" height="40" src="./image/vnpay.webp" width="40" />
                             <img alt="Momo" height="40" src="./image/momo.webp" width="40" />
                         </div>
                     </div>
-                    <div class="footer-column">
+                    <div className="footer-column">
                         <h3>Thông tin và chính sách</h3>
                         <a href="#">Mua hàng và thanh toán Online</a>
                         <br />
@@ -44,7 +44,7 @@ function Footer() {
                         <br />
                         <a href="#">Chính sách khui hộp sản phẩm Apple</a>
                     </div>
-                    <div class="footer-column">
+                    <div className="footer-column">
                         <h3>Dịch vụ và thông tin khác</h3>
                         <a href="#">Khách hàng doanh nghiệp (B2B)</a>
                         <br />
@@ -63,17 +63,17 @@ function Footer() {
                         <a href="#">Dịch vụ bảo hành mở rộng</a>
                         <br />
                     </div>
-                    <div class="footer-column">
+                    <div className="footer-column">
                         <h3>
                             Kết nối với chúng tôi
                         </h3>
-                        <div class="social-icons">
+                        {/* <div class="social-icons">
                             <img alt="Facebook" height="25" src="./image/facebook.webp" width="60" />
                             <img alt="YouTube" height="25" src="./image/youtube.webp" width="60" />
                             <img alt="Instagram" height="25" src="./image/instagram.webp" width="60" />
                             <img alt="TikTok" height="25" src="./image/tiktok.webp" width="60" />
                             <img alt="Zalo" height="25" src="./image/zalo.webp" width="60" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
