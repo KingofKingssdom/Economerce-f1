@@ -1,12 +1,12 @@
-import "../../styles/index.css"
+import "../../../../styles/index.css"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoPencil } from "react-icons/go";
-import { getCategory, getCategoryByCategoryCode } from "../../services/ApiCategory";
+import { getCategoryByCategoryCode, getCategory } from "../../../../services/ApiCategory";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { IoAddOutline } from "react-icons/io5";
-import PageNavigation from "../../components/admin/ui/PageNavigation";
+import PageNavigation from "../../common/PageNavigation"
 import UpdateCateogry from "./UpdateCategory";
 function ListCategory() {
     const [categories, setCategories] = useState([]);

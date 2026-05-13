@@ -5,12 +5,28 @@ import { getTotalProduct } from "../../../services/ApiProduct";
 import { getCountOrder, getTotalPrice } from "../../../services/ApiOrder";
 import { getCountUser } from "../../../services/ApiAuth";
 import { useEffect, useState } from "react";
+import RevenueWeeklyChart from "../features/revenueAnalysis/RevenueWeeklyChart";
+import { getRevenueByOrderStatus } from "../../../services/ApiOrder";
 function DashboardOverview() {
     const [totalProduct, setTotalProduct] = useState(0);
     const [countOrder, setCountOrder] = useState(0);
     const [totalPrices, setTotalPrices] = useState(0);
     const [countUsers, setCountUsers] = useState(0);
+    const [orderRenueve, setOrderRenueve] = useState([]);
+    const fethRevenue = async () => {
+        try {
+            await getRevenueByOrderStatus(3).then((response) => {
+                setOrderRenueve(response.data)
+            });
+        } catch (error) {
+            console.log("lỗi gọi api " + error)
+        }
 
+    }
+    useEffect(() => {
+        fethRevenue()
+    }, [])
+    console.log(orderRenueve);
     const fethCountUser = async () => {
         try {
             await getCountUser().then((response) => {
@@ -109,6 +125,10 @@ function DashboardOverview() {
                     </div>
 
                 </div>
+
+            </div>
+            <div style={{ margin: '30px 40px', maxWidth: '600px' }}>
+                <RevenueWeeklyChart data={orderRenueve} />
             </div>
         </>
     )

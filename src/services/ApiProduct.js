@@ -61,12 +61,32 @@ export function putProductVariant(id, productId, formData) {
     })
 }
 export function postProductSpecification(value) {
-    return apiFetch("/productSpecification/create", {
+    return apiFetch("/product-specifications/", {
         method: "POST",
-        body: value
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            specificationName: value,
+        })
     })
 }
-
+export function gettProductSpecification() {
+    return apiFetch("/product-specifications/", {
+        method: "GET"
+    })
+}
+export function putProductSpecification(id, value) {
+    return apiFetch(`/product-specifications/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            specificationName: value,
+        })
+    })
+}
 export function getProductSpecificationByProductId(value) {
     return apiFetch(`/productSpecification/search?productId=${value}`, {
         method: "GET"

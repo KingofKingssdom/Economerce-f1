@@ -1,14 +1,11 @@
-import "../../styles/index.css"
+import "../../../../styles/index.css"
 import { useState, useEffect } from "react";
-import { putBrand } from "../../services/ApiBrand";
+import { putBrand } from "../../../../services/ApiBrand";
 import { useParams } from "react-router-dom";
-import { getCategory } from "../../services/ApiCategory";
+import { getCategory } from "../../../../services/ApiCategory";
 function UpdateBrand(props) {
     const idBrand = props.id
     const close = props.onSuccess;
-    // const [categoryCode, setCategoryCode] = useState("");
-    // const [categoryName, setCategoryName] = useState("");
-
     const [brandName, setBrandName] = useState("");
     const [brandCode, setBrandCode] = useState("");
     const [categoryId, setCategoryId] = useState("");
@@ -46,6 +43,7 @@ function UpdateBrand(props) {
             await putBrand(idBrand, form);
             alert("Cập nhập nhãn hiệu thành công ")
             close();
+            window.location.reload()
             setBrandCode("");
             setBrandName("");
             setCategoryId("");
@@ -56,27 +54,12 @@ function UpdateBrand(props) {
             console.log("Lỗi thêm nhãn hàng " + error);
         }
     }
-    // const handleSubmit = async () => {
-    //     try {
-    //         const response = await putCategory(categoryId, categoryCode, categoryName);
-    //         alert("Cập nhập dữ liệu thành công")
-    //         close();
-    //         setCategoryName("");
-    //         setCategoryCode("");
-    //         window.location.reload();
 
-    //     }
-    //     catch (error) {
-    //         alert("Thêm dữ liệu danh mục không thành công")
-    //         console.error(" Lỗi thêm dữ liệu danh mục " + error);
-
-    //     }
-    // };
     return (
         <>
             <div className=''>
 
-                <div className="content-cateogry" style={{ margin: '50px auto', width: '95%', borderRadius: '10px' }}>
+                <div className="content-cateogry" style={{ margin: '50px auto', width: '95%', borderRadius: '10px', backgroundColor: '#FFF8F7' }}>
                     {/* {message && <p className="notification-success">Thêm thành công</p>}
                 {errorMessage && <p className="notification-error">{errorMessage}</p>} */}
                     <div>

@@ -1,6 +1,6 @@
-import "../../styles/index.css"
+import "../../../../styles/index.css"
 import { useState } from "react";
-import { postCategory } from "../../services/ApiCategory";
+import { postCategory } from "../../../../services/ApiCategory";
 function AddCateogry() {
     const [categoryCode, setCategoryCode] = useState("");
     const [categoryName, setCategoryName] = useState("");

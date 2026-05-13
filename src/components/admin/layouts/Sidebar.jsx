@@ -1,4 +1,4 @@
-import "../../styles/index.css"
+import "../../../styles/index.css"
 import { useState } from 'react';
 import { FaListAlt, FaFolder, FaHome, FaFacebookMessenger, FaFileInvoiceDollar, FaRegListAlt } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
@@ -115,22 +115,16 @@ function Sidebar() {
                         <div className='select-item'
                             onClick={
                                 () => {
-                                    tonggleSpec()
+                                    // tongleOrder();
                                     setActiveDropdown("specification");
-
                                 }}
                         >
-
-                            <div className='content-item'>
-
-                                <i><FaRegListAlt /></i> Thông số sản phẩm<MdOutlineKeyboardArrowDown />
-
-                            </div>
-
-
+                            <Link to="/admin/listSpecification" className='content-item'>
+                                <i><FaFileInvoiceDollar /></i>  Thông số sản phẩm
+                            </Link>
 
                         </div>
-                        {specification && <div className='item-select-child'>
+                        {/* {specification && <div className='item-select-child'>
                             <Link to="/admin/addSpecification">
                                 <div className='select-item-child'>
                                     <div className='content-item'>
@@ -150,7 +144,7 @@ function Sidebar() {
                             </Link>
 
 
-                        </div>}
+                        </div>} */}
 
                     </div>
                     <div><FaFacebookMessenger /> Tin nhắn</div>

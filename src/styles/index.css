@@ -485,7 +485,6 @@ li {
     overflow: hidden;
     width: 100%;
     text-align: center;
-    background-color: var(--background-box-color);
 }
 
 .content-add h1 {
@@ -604,7 +603,6 @@ li {
 
 /*ListCategory*/
 .content-list {
-    background-color: var(--background-box-color);
     margin: 0 30px;
     width: 100%;
 }
@@ -2575,7 +2573,7 @@ td {
     display: flex;
     width: 100%;
     max-height: 870px;
-    background-color: var(--background-box-color);
+    background-color: rgb(255, 248, 247);
     overflow: hidden;
 }
 
@@ -2901,6 +2899,7 @@ span i {
     background-color: white;
     box-shadow: 0 0 15px 2px rgb(0, 0, 0, 0.2);
     width: 250px;
+    border: 1px solid var(--primary-color);
 
 
 }
@@ -3114,7 +3113,6 @@ span i {
 .container-home-admin {
     overflow-y: auto;
     min-height: 630px;
-    background-color: rgb(241, 245, 248);
     width: 1260px;
 }
 

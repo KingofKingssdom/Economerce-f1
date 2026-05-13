@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "../../styles/index.css"
-import { getCategory } from "../../services/ApiCategory";
-import { postBrand } from "../../services/ApiBrand";
+import "../../../../styles/index.css"
+import { getCategory } from "../../../../services/ApiCategory";
+import { postBrand } from "../../../../services/ApiBrand";
 function AddBrand() {
     // const [errorMessage, setErrorMessage] = useState("");
     // const [message, setMessage] = useState("");

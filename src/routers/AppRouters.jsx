@@ -3,21 +3,25 @@ import { useState, useEffect } from "react";
 import { Route, Routes } from 'react-router-dom';
 import { IoIosArrowUp } from "react-icons/io";
 import UserLayout from "../layouts/UserLayout";
-import AdminLayout from "../layouts/AdminLayout"
+import AdminLayout from "../components/admin/layouts/AdminLayout";
+import AdminHomePage from "../components/admin/pages/AdminHomePage";
+import AddCategory from "../components/admin/features/categories/AddCategory";
+import ListCategory from "../components/admin/features/categories/ListCategory";
+import AddBrand from "../components/admin/features/brands/AddBrand";
+import ListBrand from "../components/admin/features/brands/ListBrand";
+import AddProduct from "../components/admin/features/products/AddProduct";
+import AddProductVariant from "../components/admin/features/products/AddProductVariant";
+import ListProduct from "../components/admin/features/products/ListProduct";
+import ListOrder from "../components/admin/features/orders/ListOrder";
+import ListProductDetail from "../components/admin/features/products/ListProductDetail";
+import ListOrderDetail from "../components/admin/features/orders/ListOrderDetail";
+import ListProductSpecification from "../components/admin/features/products/ListProductSpecification";
+import AddProductSpecification from "../components/admin/features/products/AddProductSpecification";
 import HomePage from "../pages/user/HomePage";
-import AdminHomePage from "../pages/admin/AdminHomePage";
-import AddCategory from "../features/categories/AddCategory";
 import Login from "../features/Login";
-import ListCategory from "../features/categories/ListCategory";
-import AddBrand from "../features/brands/AddBrand";
-import ListBrand from "../features/brands/ListBrand";
-import AddProduct from "../features/products/AddProduct";
-import AddProductVariant from "../features/products/AddProductVariant";
-import ListProduct from "../features/products/ListProduct";
-import ListOrder from "../features/order/ListOrder";
-import AddProductSpecification from "../features/products/AddProductSpecification";
+
+
 import AddProductSpecificationDetail from "../features/products/AddProductSpecificationDetail";
-import ListProductDetail from "../features/products/ListProductDetail";
 import PhoneProductDetail from "../features/user/phone/PhoneProductDetail";
 import Cart from "../features/user/cart/Cart";
 import PayMethod from "../features/user/pay/Paymethod";
@@ -39,8 +43,7 @@ import ScreenListProduct from "../features/user/screen/ScreenListProduct";
 import ScreenProductDetail from "../features/user/screen/ScreenProductDetail";
 import TiviListProduct from "../features/user/tivi/TiviListProduct";
 import TiviProductDetail from "../features/user/tivi/TiviProductDetail";
-import UpdateCateogry from "../features/categories/UpdateCategory";
-import ListOrderDetail from "../features/order/ListOrderDetail";
+
 function AppRouters() {
     const [showButton, setShowButton] = useState(false);
 
@@ -111,30 +114,16 @@ function AppRouters() {
                     <Route path="/admin/addProductVariant/:productId" element={<AddProductVariant />} />
                     <Route path="/admin/listProduct" element={<ListProduct />} />
                     <Route path="/admin/listOrder" element={<ListOrder />} />
-                    <Route path="/admin/addSpecification" element={<AddProductSpecification />} />
+                    <Route path="/admin/addProductSpecification" element={<AddProductSpecification />} />
                     <Route path="/admin/addSpecificationDetail" element={<AddProductSpecificationDetail />} />
                     <Route path="/admin/product-variants/id/:id" element={<ListProductDetail />} />
-                    <Route path="/admin/updateCategory/:id" element={<UpdateCateogry />} />
                     <Route path="/admin/orderDetail/:id" element={<ListOrderDetail />} />
+                    <Route path="/admin/listSpecification" element={<ListProductSpecification />} />
 
                     {/*   
-                       
-                        
-                        
-                      
-                        
-                       
-                        
                         <Route path="/admin/updateBrand/:id" element={<UpdateBrand />} />
                         <Route path="/admin/updateProduct/:id" element={<UpdateProduct />} />
                         <Route path="/admin/listUser" element={<ListUser />} />
-                       
-                        
-                        
-                       
-                        
-                        
-               
                 {/* <Route path="/admin/login" element={<LoginAdmin />} /> */}
                 </Route>
             </Routes>

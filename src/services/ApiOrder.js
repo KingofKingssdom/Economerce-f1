@@ -73,3 +73,8 @@ export function getTotalPrice(orderStatus) {
         method: "GET",
     })
 }
+export function getRevenueByOrderStatus(orderStatus) {
+    return apiFetch(`/order/orderStatus/${orderStatus}`, {
+        method: "GET",
+    })
+}

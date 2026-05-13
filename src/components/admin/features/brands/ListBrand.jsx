@@ -1,12 +1,12 @@
-import "../../styles/index.css"
-import { getBrand } from "../../services/ApiBrand";
+import "../../../../styles/index.css"
+import { getBrand } from "../../../../services/ApiBrand";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GoPencil } from "react-icons/go";
 import { IoAddOutline } from "react-icons/io5";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload } from "react-icons/md";
-import PageNavigation from "../../components/admin/ui/PageNavigation";
+import PageNavigation from "../../common/PageNavigation";
 import UpdateBrand from "./UpdateBrand";
 function ListBrand() {
     const IMAGE_BASE_URL = import.meta.env.VITE_IMAGE_BASE_URL;

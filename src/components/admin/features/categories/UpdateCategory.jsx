@@ -1,6 +1,6 @@
-import "../../styles/index.css"
+import "../../../../styles/index.css"
 import { useState } from "react";
-import { putCategory } from "../../services/ApiCategory";
+import { putCategory } from "../../../../services/ApiCategory";
 import { useParams } from "react-router-dom";
 function UpdateCateogry(props) {
     const categoryId = props.id
@@ -34,7 +34,7 @@ function UpdateCateogry(props) {
         <>
             <div className=''>
 
-                <div className="content-cateogry" style={{ margin: '50px auto', width: '95%', borderRadius: '10px' }}>
+                <div className="content-cateogry" style={{ margin: '50px auto', width: '95%', borderRadius: '10px', backgroundColor: '#FFF8F7' }}>
                     {/* {message && <p className="notification-success">Thêm thành công</p>}
                 {errorMessage && <p className="notification-error">{errorMessage}</p>} */}
                     <div>

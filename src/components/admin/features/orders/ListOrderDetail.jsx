@@ -1,11 +1,11 @@
-import "../../styles/index.css";
+import "../../../../styles/index.css";
 import { IoBagCheckOutline, IoPrintOutline } from "react-icons/io5";
 import { CiUser } from "react-icons/ci";
 import { MdOutlinePhone, MdOutlineEmail } from "react-icons/md";
 import { useState, useEffect } from "react";
-import { getOrderItemByOrderId } from "../../services/ApiOrder";
+import { getOrderItemByOrderId } from "../../../../services/ApiOrder";
 import { useParams } from "react-router-dom";
-import { putOrderStatus } from "../../services/ApiOrder";
+import { putOrderStatus } from "../../../../services/ApiOrder";
 function ListOrderDetail() {
     const { id } = useParams();
     const [orderDetails, setOrderDetails] = useState([]);

@@ -1,5 +1,5 @@
-import "../../styles/index.css";
-import { getAllOrder } from "../../services/ApiOrder";
+import "../../../../styles/index.css";
+import { getAllOrder } from "../../../../services/ApiOrder";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { MdOutlineRemoveRedEye, MdDeleteOutline } from "react-icons/md";
@@ -8,7 +8,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { CgSortAz } from "react-icons/cg";
 import { MdFileDownload, MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import PageNavigation from "../../components/admin/ui/PageNavigation"
+import PageNavigation from "../../common/PageNavigation"
 import { LiaEyeSolid } from "react-icons/lia";
 function ListOrder() {
     const [orders, setOrders] = useState([]);
