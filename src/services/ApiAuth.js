@@ -27,6 +27,20 @@ export function postRegister(FullName, PhoneNumber, Email, Password) {
         })
     });
 }
+export function postRegisterAdmin(FullName, PhoneNumber, Email, Password) {
+    return apiFetch("/user/register/Admin", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            FullName,
+            PhoneNumber,
+            Email,
+            Password
+        })
+    });
+}
 export function getUserCurrent() {
     return apiFetch(`/user/me`, {
         method: "GET"

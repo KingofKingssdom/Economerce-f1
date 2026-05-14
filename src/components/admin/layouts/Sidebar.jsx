@@ -2,14 +2,25 @@ import "../../../styles/index.css"
 import { useState } from 'react';
 import { FaListAlt, FaFolder, FaHome, FaFacebookMessenger, FaFileInvoiceDollar, FaRegListAlt } from "react-icons/fa";
 import { AiFillProduct } from "react-icons/ai";
-import { MdCategory, MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { MdCategory, MdOutlineKeyboardArrowDown, MdOutlineBrandingWatermark } from "react-icons/md";
 import { MdOutlineSubject } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
-import { IoEyeSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { IoEyeSharp, IoSettingsSharp } from "react-icons/io5";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaRegUser } from "react-icons/fa";
 function Sidebar() {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [show, setShow] = useState(false);
+    const [user, setUser] = useState(null);
+    const [showUserMenu, setShowUserMenu] = useState(false);
+    const handleLogout = () => {
+        sessionStorage.removeItem("user");
+        setUser(null);
+        setShowUserMenu(false);
+        navigate("/admin/login");
+    }
     const tonggleShow = () => {
         setShow(!show)
     }
@@ -69,7 +80,7 @@ function Sidebar() {
                                 }}
                         >
                             <Link to="/admin/listBrand" className='content-item'>
-                                <i><MdOutlineSubject /></i>  Nhãn hàng
+                                <i><MdOutlineBrandingWatermark /></i>  Nhãn hàng
                             </Link>
 
 
@@ -120,34 +131,42 @@ function Sidebar() {
                                 }}
                         >
                             <Link to="/admin/listSpecification" className='content-item'>
-                                <i><FaFileInvoiceDollar /></i>  Thông số sản phẩm
+                                <i><IoSettingsSharp /></i>  Thông số sản phẩm
                             </Link>
 
                         </div>
-                        {/* {specification && <div className='item-select-child'>
-                            <Link to="/admin/addSpecification">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm loại thông số</p>
 
-                                    </div>
-                                </div>
-                            </Link>
-                            <Link to="/admin/addSpecificationDetail">
-                                <div className='select-item-child'>
-                                    <div className='content-item'>
-                                        <i><FaFolder /></i> <p>Thêm chi tiết thông số</p>
-                                    </div>
-
-                                </div>
-
-                            </Link>
-
-
-                        </div>} */}
 
                     </div>
                     <div><FaFacebookMessenger /> Tin nhắn</div>
+                    {/* Thông tin user + Logout */}
+                    <div className="header-item-username" style={{ marginTop: '270px' }}>
+                        <FaRegUser className="icon-login" />
+
+                        {user ? (
+                            <>
+                                <p
+                                    className="name-user"
+
+                                    onClick={() => setShowUserMenu(!showUserMenu)}
+                                >
+                                    {user.fullName.split(" ").pop()}
+                                </p>
+
+                                {showUserMenu && (
+                                    <div className="user-dropdown">
+                                        <button onClick={handleLogout}>
+                                            Đăng xuất <MdOutlineLogout />
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <Link to="/admin/login" className="login-link" onClick={(e) => e.stopPropagation()}>
+                                Đăng nhập
+                            </Link>
+                        )}
+                    </div>
                 </div>
             </div >
         </>

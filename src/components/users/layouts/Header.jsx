@@ -98,7 +98,7 @@ function Header() {
                                             </p>
 
                                             {showUserMenu && (
-                                                <div className="user-dropdown">
+                                                <div className="user-dropdown" >
                                                     <button onClick={handleLogout}>
                                                         Đăng xuất <MdOutlineLogout />
                                                     </button>
