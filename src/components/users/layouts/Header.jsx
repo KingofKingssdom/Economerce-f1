@@ -56,6 +56,17 @@ function Header() {
     }, [])
 
 
+    useEffect(() => {
+  if (showCategory) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+
+  return () => {
+    document.body.style.overflow = '';
+  };
+}, [showCategory]);
     return (
         <>
             <div className="container-header">
@@ -134,9 +145,12 @@ function Header() {
                                 </div>
                             </div>
                             {/* Show danh mục   */}
-                            <div className={`container-category ${showCategory ? 'show' : ''}`}>
-                                <Category />
+                            <div className={`nen-category ${showCategory ? 'active' : ''}`}>
+                                <div className={`container-category ${showCategory ? 'show' : ''}`}> 
+                                    <Category />
+                                </div>
                             </div>
+                            {/*  */}
                         </div>
                         <div className='header-item-search'>
                             <div className='search-left'>
@@ -197,7 +211,11 @@ function Header() {
 
                     </div>
                 </div>
+                
                 <div className={`box-show-search ${showSearchBox ? 'search-show' : ''}`}>
+                    <div className="triangle-up">
+                    
+                </div>
                     <SearchProduct
                         dataSearch={searchItem}
                     />
