@@ -6,6 +6,8 @@ import CategoryBox from "../ui/CategoryBox";
 import AOS from "aos";
 import { useEffect } from "react";
 import "aos/dist/aos.css";
+import BannerCarousel from "../features/BannerCarousel/BannerCarousel";
+import Category from "../ui/Category";
 function HomePage() {
     useEffect(() => {
         AOS.init({
@@ -16,8 +18,9 @@ function HomePage() {
     return (
         <>
             {/* <Banner /> */}
-            <div>
-                <CategoryBox />
+            <div style={{display: "flex"}}>
+                <Category/>
+                <BannerCarousel />
             </div>
             <div data-aos="fade-down">
                 <HotSaleProduct />
