@@ -3525,3 +3525,9 @@ span i {
     border-radius: 10px;
     margin: 0 30px;
 }
+
+/*OutStanding*/
+.content1-outStanding{
+    border: 1px solid green;
+    margin: 20px 0;
+}

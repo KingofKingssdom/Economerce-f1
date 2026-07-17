@@ -29,6 +29,27 @@ function BannerCarousel() {
           alt="Banner3"
         />
       </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="./image/Banner4.png"
+          alt="Banner4"
+        />
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="./image/Banner5.png"
+          alt="Banner5"
+        />
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src="./image/Banner6.png"
+          alt="Banner6"
+        />
+      </Carousel.Item>
     </Carousel>
         </div>
         </>
