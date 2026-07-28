@@ -8,7 +8,7 @@ import AdminLayout from "../components/admin/layouts/AdminLayout";
 import Login from "../components/users/features/login/Login";
 import AdminLogin from "../components/admin/features/login/Login"
 // import AddProductSpecificationDetail from "../components/admin/features/products/AddProductSpecification";
-import AdminProtectedRoute from "./AdminProtectedRoute"
+import AdminProtectedRoute from "../components/admin/routers/AdminProtectedRoute";
 
 
 import { ImImage } from "react-icons/im";

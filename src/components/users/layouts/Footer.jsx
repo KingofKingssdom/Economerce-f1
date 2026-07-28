@@ -14,8 +14,8 @@ function Footer() {
 
                         <h3>Phương thức thanh toán</h3>
                         <div className="payment-methods">
-                            <img alt="VNPay" height="40" src="./image/vnpay.webp" width="40" />
-                            <img alt="Momo" height="40" src="./image/momo.webp" width="40" />
+                            <img alt="VNPay" height="40" src="./image/logoPay1.png" width="40" />
+                            <img alt="Momo" height="40" src="./image/logoPay2.png" width="40" />
                         </div>
                     </div>
                     <div className="footer-column">

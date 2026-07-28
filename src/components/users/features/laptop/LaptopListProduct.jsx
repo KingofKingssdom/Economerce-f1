@@ -10,7 +10,7 @@ function LaptopListProduct() {
     const linkLaptop = "/laptopDetail"
     const fetchBrand = async () => {
         try {
-            await getBrandByCategoryId(categoryPhone).then((response) => {
+            await getBrandByCategoryId(categoryLaptop).then((response) => {
                 setDataBrand(response.data);
             })
         } catch (error) {

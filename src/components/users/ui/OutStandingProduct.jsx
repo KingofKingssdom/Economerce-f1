@@ -89,7 +89,7 @@ function OutStandingProduct() {
             <div className="container-outStanding">
                 <div className="content-outStading">
                     <div className="container-outStanding-header">
-                        <h3>SẢN PHẨM NỔI BẬT</h3>
+
                     </div>
                     <div className="container-phone">
                         <div className="title-box-product">
