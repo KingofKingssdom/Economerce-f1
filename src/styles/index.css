@@ -1,5 +1,6 @@
 :root {
     --primary-color: rgb(205, 25, 24);
+    --select-color: rgb(233, 71, 71);
     --text-primary-color: rgb(255, 255, 255);
     --background-box-color: rgb(233, 233, 235);
     --hover-color-change: rgb(180, 30, 30);
@@ -341,7 +342,11 @@ a {
     width: 20px;
     height: 20px;
 }
-
+.btn-order:hover,
+.btn-cart:hover,
+.header-item-username:hover {
+    color: var(--primary-color);
+}
 .header-item-username {
     display: flex;
     align-items: center;
@@ -351,11 +356,7 @@ a {
 }
 
 
-.btn-order:hover,
-.btn-cart:hover,
-.header-item-username:hover {
-    color: var(--primary-color);
-}
+
 
 .header-item-username p {
     color: black;
@@ -494,7 +495,9 @@ a {
     justify-content: center;
     flex-wrap: wrap;
 }
-
+.choose-log p {
+    margin-top: 13px;
+}
 .toggle-log {
     margin-left: 20px;
     cursor: pointer;
@@ -964,7 +967,10 @@ th {
     background-color: var(--primary-color);
     color: white;
 }
-
+.btn-view{
+    border: 2px solid green;
+    border-radius: 5px;
+}
 .btn-view:hover {
     cursor: pointer;
     background-color: green;
@@ -1212,29 +1218,33 @@ th {
     box-shadow: 0 0 5px 5px rgb(215, 215, 215);
     border-radius: 5px;
     position: absolute;
-    top: 720px;
+    top: 650px;
     display: flex;
     overflow: hidden;
     padding: 5px 10px;
     justify-content: space-between;
     z-index: 1;
     right: 180px;
+    min-width: 400px;
 }
 
 .container-total h4 {
     font-size: 20px;
-    margin: 20px;
+    margin: 5px;
 }
 
 .container-total p {
     margin-top: 0;
-    margin-right: 20px;
+    margin-right: 10px;
     font-size: 20px;
-    width: 40px;
+    width: 100%;
 }
 
 .container-total>.btn-buy {
-    height: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 th,
@@ -1297,7 +1307,7 @@ td {
 }
 
 .header-box-confirm p {
-    margin-top: -40px;
+    margin-top: 20px;
 }
 
 .showBox {
@@ -1333,7 +1343,7 @@ td {
 
 .btn-online-center h6 {
     font-size: 17px;
-    margin-top: -10px;
+    margin-top: 30px;
 
 }
 
@@ -1343,7 +1353,9 @@ td {
     color: #818283;
 
 }
-
+.btn-category-change{
+    background-color: var(--select-color);
+}
 
 
 .btn-online:hover,
@@ -1758,7 +1770,6 @@ td {
     height: 35px;
     overflow: hidden;
     text-align: center;
-    padding-top: 15px;
     font-size: 20px;
     color: white;
     box-shadow: 0 0 7px 5px rgb(0, 0, 0, 0.2);
@@ -1892,7 +1903,9 @@ td {
     margin: 0 10px;
     padding: 0 5px;
 }
-
+.container-detail{
+    margin-bottom: 60px;
+}
 
 /*===============Footer==============*/
 
@@ -1998,7 +2011,7 @@ td {
     padding-left: 10px;
     font-weight: bold;
     position: absolute;
-    top: -25px;
+    top: -10px;
     border-radius: 5px;
     left: 21px;
 }
@@ -2102,7 +2115,7 @@ td {
 
 
 .content-outStading {
-    background-color: rgb(243, 244, 246);
+    background-color: rgb(221, 214, 214);
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     position: relative;
@@ -2555,7 +2568,9 @@ td {
     margin: 20px 20px;
     overflow: hidden;
 }
-
+.container-description-product-detail p {
+    display: inline-block;
+}
 .contaner-des-pro {
     display: flex;
     margin: 10px 10px;
@@ -3530,4 +3545,7 @@ span i {
 .content1-outStanding{
     border: 1px solid green;
     margin: 20px 0;
+}
+.active-tab-header{
+    color: var(--select-color);
 }

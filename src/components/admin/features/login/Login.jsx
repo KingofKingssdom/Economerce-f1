@@ -55,7 +55,9 @@ function Login() {
                         transition: "ease 0.7s",
                     }}
                 >
-                    nội dung ở đây
+                    <img 
+                    style={{width: "100%", height: "100%"}}
+                    src="/image/login-admin.png" alt="ảnh login"/>
                 </div>
                 <div className="content-form">
                     <div className="container-login">

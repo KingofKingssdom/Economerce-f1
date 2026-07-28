@@ -55,7 +55,7 @@ function Login() {
                         transition: "ease 0.7s",
                     }}
                 >
-                    nội dung ở đây
+                    <img src="./image/CharacterLogin.png"/>
                 </div>
                 <div className="content-form">
                     <div className="container-login">
