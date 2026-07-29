@@ -7,6 +7,10 @@
     {
       "source": "/Images/:path*",
       "destination": "http://huystore.runasp.net/Images/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
