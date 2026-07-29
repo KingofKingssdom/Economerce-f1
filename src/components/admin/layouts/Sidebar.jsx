@@ -48,11 +48,11 @@ function Sidebar() {
             <div className="sidebar">
                 <div className='sidebar-hearder'>
                     <img src='/image/Logo.png' className='image-logo' alt='Logo' />
-                    TechStore
+                    HuyStore
                 </div>
                 <div className='container-select-item'>
-                    <div className='select-item'>
-                        <div className='content-item'>
+                    <div className='select-item' >
+                        <div className='content-item' >
                             <Link to="/admin/homePage"> <i><FaHome /></i> Trang chủ</Link>
                         </div>
                     </div>
