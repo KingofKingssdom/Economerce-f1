@@ -14,13 +14,9 @@ function Product(props) {
                     onMouseEnter={toggle}
                     onMouseLeave={toggle}
                 >
-                    <div className="info">
-                        <div>
-                            <div className="triangle-up-discount"></div>
-                            <p className="info-discount">{props.discountInfo}</p>
-                        </div>
-
-                        {/* <p className="info-percent">{props.percent}fdf</p> */}
+                    <div className="container-badge">
+                        <div className="triangle-up-badge"></div>
+                        <div className="badge">{props.discountInfo}</div>
                     </div>
                     <div className={`image-product ${change ? "scale-image" : ""}`}>
                         <img src={`${IMAGE_BASE_URL}${props.image}`} alt={props.title} />

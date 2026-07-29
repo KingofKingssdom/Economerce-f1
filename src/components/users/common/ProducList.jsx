@@ -43,8 +43,6 @@ function ProductList(props) {
 
     const productShow = (brandId !== 0 ? filterBrand : initialList) || [];
 
-    console.log("Giá trị productShow:", productShow);
-
     const pages = [];
     for (let i = 1; i <= currentPage; i++) {
         pages.push(
