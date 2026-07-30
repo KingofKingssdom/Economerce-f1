@@ -73,7 +73,7 @@ function ProductList(props) {
             <div className="item-product">
                 {productShow.length > 0 ? (
                     productShow?.map((data) => (
-                        <div className="box" key={data.id}>
+                        <div style={{margin: "0 5px"}} key={data.id}>
                             <Product
                                 preLink={props.link}
                                 id={data.id}

@@ -154,7 +154,7 @@ function ProductDetail(props) {
                                     ))}
                                 </div>
                             </div>
-                            <div className="container-version-product-detail">
+                            <div className="container-color-product-detail">
                                 Màu sắc
                                 <div className="content-version-product-detail">
                                     {variants

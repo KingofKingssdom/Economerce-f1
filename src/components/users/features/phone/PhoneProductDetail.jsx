@@ -21,7 +21,9 @@ function PhoneProductDetail() {
     }, [])
     return (
         <>
-            {dataProduct && <ProductDetail data={dataProduct} />}
+            {dataProduct && 
+                <ProductDetail data={dataProduct} />
+            }
         </>
     )
 }
