@@ -19,8 +19,13 @@ function HomePage() {
         <>
             {/* <Banner /> */}
             <div style={{display: "flex"}}>
-                <Category/>
-                <BannerCarousel />
+                <div className="respon-mobile">
+                    <Category/>
+                </div>
+                <div className="layout-carousel">
+                    <BannerCarousel />
+                </div>
+                
             </div>
             <div data-aos="fade-down">
                 <HotSaleProduct />
