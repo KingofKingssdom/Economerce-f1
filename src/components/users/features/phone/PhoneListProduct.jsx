@@ -37,12 +37,15 @@ function PhoneListProduct() {
         <>
             <div className="container-detail">
                 <p className="name-product-detail"></p>
-                <ProductList
+                <div>
+                    <ProductList
                     dataBrand={dataBrand}
                     dataProduct={dataProduct}
                     categoryId={categoryPhone}
                     link={linkPhone}
                 />
+                </div>
+                    
             </div>
         </>
     )

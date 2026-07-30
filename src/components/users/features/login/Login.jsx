@@ -55,7 +55,10 @@ function Login() {
                         transition: "ease 0.7s",
                     }}
                 >
-                    <img src="./image/CharacterLogin.png"/>
+                    <div className="content-image-form">
+                        <img src="./image/CharacterLogin.png"/>
+                    </div>
+                    
                 </div>
                 <div className="content-form">
                     <div className="container-login">
