@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Product from "./Product";
 function ProductSlider({ data = [], getLink }) {
+  const myValue = window.matchMedia('(max-width: 767px)').matches ? 200 : 100;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Bạn có thể chỉnh số này cố định hoặc truyền từ ngoài vào làm props
@@ -25,7 +26,7 @@ function ProductSlider({ data = [], getLink }) {
         style={{
           display: "flex",
           flexWrap: "nowrap",
-          transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
+          transform: `translateX(-${currentIndex * (myValue / itemsToShow)}%)`,                                                                                                                                                                                                    
           transition: "transform 0.5s ease-out",
         }}
       >
@@ -37,9 +38,9 @@ function ProductSlider({ data = [], getLink }) {
               className="product-item-wrapper"
               style={{
 
-                flex: `0 0 ${100 / itemsToShow}%`,
+                flex: `0 0 ${myValue / itemsToShow}%`,
                 boxSizing: "border-box",
-                padding: "0 10px"
+                
               }}
             >
               <Product
